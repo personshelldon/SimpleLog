@@ -1,0 +1,31 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'SimpleLog-Processor'
+
+    publishedGroupId = 'com.don11995.log'
+    libraryName = 'SimpleLog-Processor'
+    artifact = 'simple-log-processor'
+
+    libraryDescription = 'AnnotationProcessor fot SimpleLog library'
+
+    siteUrl = 'https://bitbucket.org/don11995/simplelog'
+    gitUrl = 'https://bitbucket.org/don11995/simplelog'
+
+    libraryVersion = '1.1.4'
+
+    developerId = 'personshelldon'
+    developerName = 'Vladislav Lozitskyi'
+    developerEmail = 'personshelldon@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'

@@ -1,0 +1,46 @@
+apply plugin: 'com.android.library'
+
+android {
+
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 17
+        versionName "1.1.4"
+        consumerProguardFiles "proguard-rules.pro"
+    }
+}
+
+dependencies {
+    implementation 'com.android.support:support-annotations:26.1.0'
+}
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'SimpleLog'
+
+    publishedGroupId = 'com.don11995.log'
+    libraryName = 'SimpleLog'
+    artifact = 'simple-log'
+
+    libraryDescription = 'Extended log library for Android'
+
+    siteUrl = 'https://bitbucket.org/don11995/simplelog'
+    gitUrl = 'https://bitbucket.org/don11995/simplelog'
+
+    libraryVersion = '1.1.4'
+
+    developerId = 'personshelldon'
+    developerName = 'Vladislav Lozitskyi'
+    developerEmail = 'personshelldon@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
