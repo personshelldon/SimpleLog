@@ -81,3 +81,16 @@ repositories {
 annotationProcessor 'com.don11995.log:simple-log-processor:1.1.4'
 implemetation 'com.don11995.log:simple-log:1.1.4'
 ```
+
+### ProGuard rules for release build:
+```proguard
+-assumenosideeffects class com.don11995.log.SimpleLog {
+    public void <init>(...);
+    <methods>;
+}
+
+-assumenosideeffects class com.don11995.log.Group {
+    public void <init>(...);
+    <methods>;
+}
+```
