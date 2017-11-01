@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 18
-        versionName "1.1.5"
+        versionCode 19
+        versionName "1.1.6"
         consumerProguardFiles "proguard-rules.pro"
     }
 }
@@ -31,7 +31,7 @@ ext {
     siteUrl = 'https://bitbucket.org/don11995/simplelog'
     gitUrl = 'https://bitbucket.org/don11995/simplelog'
 
-    libraryVersion = '1.1.5'
+    libraryVersion = '1.1.6'
 
     developerId = 'personshelldon'
     developerName = 'Vladislav Lozitskyi'
