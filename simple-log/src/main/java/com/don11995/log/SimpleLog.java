@@ -267,9 +267,12 @@ public class SimpleLog {
         if (firstDollar > 0) {
             tag = tag.substring(0, firstDollar);
         }
-        message = message.replaceAll("\r",
-                                     "").replaceAll("\n\n",
-                                                    "\n").trim();
+        if (tag.length() > 23) {
+            tag = tag.substring(0, 23);
+        }
+        message = message.replaceAll("\r", "")
+                         .replaceAll("\n+", "\n")
+                         .trim();
         if (printFunctionName) {
             String method = element.getMethodName();
             if (message.isEmpty()) {
@@ -281,14 +284,12 @@ public class SimpleLog {
         if (message.isEmpty()) return;
         ArrayList<String> logs = new ArrayList<>();
         while (message.length() > MAX_LOG_CHUNK_SIZE) {
-            String temp = message.substring(0,
-                                            MAX_LOG_CHUNK_SIZE);
-            int nextStartIndex = temp.lastIndexOf('\n') + 1;
+            String temp = message.substring(0, MAX_LOG_CHUNK_SIZE);
+            int nextStartIndex = temp.lastIndexOf('\n');
             if (nextStartIndex <= 0) {
                 nextStartIndex = MAX_LOG_CHUNK_SIZE;
             }
-            temp = temp.substring(0,
-                                  nextStartIndex).trim();
+            temp = temp.substring(0, nextStartIndex).trim();
             logs.add(temp);
             message = message.substring(nextStartIndex);
         }
@@ -296,28 +297,22 @@ public class SimpleLog {
         for (String s : logs) {
             switch (logLevel) {
                 case LOG_LEVEL_DEBUG:
-                    android.util.Log.d(tag,
-                                       s);
+                    android.util.Log.d(tag, s);
                     break;
                 case LOG_LEVEL_ERROR:
-                    android.util.Log.e(tag,
-                                       s);
+                    android.util.Log.e(tag, s);
                     break;
                 case LOG_LEVEL_INFO:
-                    android.util.Log.i(tag,
-                                       s);
+                    android.util.Log.i(tag, s);
                     break;
                 case LOG_LEVEL_VERBOSE:
-                    android.util.Log.v(tag,
-                                       s);
+                    android.util.Log.v(tag, s);
                     break;
                 case LOG_LEVEL_WARNING:
-                    android.util.Log.w(tag,
-                                       s);
+                    android.util.Log.w(tag, s);
                     break;
                 case LOG_LEVEL_ALL:
-                    android.util.Log.wtf(tag,
-                                         s);
+                    android.util.Log.wtf(tag, s);
                     break;
                 case LOG_LEVEL_NONE:
                     break;
