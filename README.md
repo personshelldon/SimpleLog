@@ -1,7 +1,7 @@
 # Extended Log library for Android
-<b>SimpleLog</b> - an extended library for logging on devices running Android. Unlike the standard log, the library can generate tags and output method names depending on where the log was called, and also solves some additional tasks. In the source files there is a test application, in which you can see the working principle.
+**SimpleLog** - an extended library for logging on devices running Android. Unlike the standard log, the library can generate tags and output method names depending on where the log was called, and also solves some additional tasks. In the source files there is a test application, in which you can see the working principle.
 
-<div style="text-align:center"><img src="screen.png" alt="Screenshot"/></div>
+![Screenshot](screen.png)
 
 ### Example of usage:
 ```java
