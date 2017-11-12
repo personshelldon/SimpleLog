@@ -702,7 +702,6 @@ public class SimpleLog {
     /**
      * Print throwable with stack trace and current method name at start
      *
-     * @param tag       tag to use
      * @param throwable throwable to ptint
      */
     public static void fe(Throwable throwable) {
