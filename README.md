@@ -1,4 +1,4 @@
-# Exteneded Log library for Andoroid.
+# Extended Log library for Android
 
 ### Example:
 ```java
@@ -31,7 +31,7 @@ public class MainActivity
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //prints "onCreate()" with tag "MainActivity"
-        SimpleLog.d();
+        SimpleLog.fd();
 
         //prints "Test" with tag "MainActivity"
         SimpleLog.d("Test1");
@@ -73,24 +73,19 @@ public class MainActivity
 
 ### Usage:
 ```gradle
-repositories {
-        ...
-        maven {url 'https://dl.bintray.com/personshelldon/maven/' }
-    }
-
-annotationProcessor 'com.don11995.log:simple-log-processor:1.1.4'
-implemetation 'com.don11995.log:simple-log:1.1.4'
+annotationProcessor 'com.don11995.log:simple-log-processor:1.1.7'
+implemetation 'com.don11995.log:simple-log:1.1.7'
 ```
 
 ### ProGuard rules for release build:
 ```proguard
 -assumenosideeffects class com.don11995.log.SimpleLog {
-    public static void d();
-    public static void i();
-    public static void e();
-    public static void v();
-    public static void w();
-    public static void wtf();
+    public static void fd();
+    public static void fi();
+    public static void fe();
+    public static void fv();
+    public static void fw();
+    public static void fwtf();
     public static void d(...);
     public static void i(...);
     public static void e(...);
@@ -103,6 +98,18 @@ implemetation 'com.don11995.log:simple-log:1.1.4'
     public static void fv(...);
     public static void fw(...);
     public static void fwtf(...);
+    public static void td(...);
+    public static void ti(...);
+    public static void te(...);
+    public static void tv(...);
+    public static void tw(...);
+    public static void twtf(...);
+    public static void tfd(...);
+    public static void tfi(...);
+    public static void tfe(...);
+    public static void tfv(...);
+    public static void tfw(...);
+    public static void tfwtf(...);
 }
 
 -assumenosideeffects class com.don11995.log.Group {

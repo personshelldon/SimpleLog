@@ -44,7 +44,7 @@ public class MainActivity
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //prints "onCreate()" with tag "MainActivity"
-        SimpleLog.d();
+        SimpleLog.fd();
 
         //prints "Test" with tag "MainActivity"
         SimpleLog.d("Test1");

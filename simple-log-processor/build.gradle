@@ -3,6 +3,10 @@ apply plugin: 'java'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+dependencies {
+    testImplementation "junit:junit:4.12"
+}
+
 ext {
     bintrayRepo = 'maven'
     bintrayName = 'SimpleLog-Processor'
@@ -16,7 +20,7 @@ ext {
     siteUrl = 'https://bitbucket.org/don11995/simplelog'
     gitUrl = 'https://bitbucket.org/don11995/simplelog'
 
-    libraryVersion = '1.1.6'
+    libraryVersion = versions.versionName
 
     developerId = 'personshelldon'
     developerName = 'Vladislav Lozitskyi'
@@ -27,5 +31,5 @@ ext {
     allLicenses = ["Apache-2.0"]
 }
 
-apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
-apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+apply from: "$rootProject.projectDir/config/bintray-install.gradle"
+apply from: "$rootProject.projectDir/config/bintray.gradle"

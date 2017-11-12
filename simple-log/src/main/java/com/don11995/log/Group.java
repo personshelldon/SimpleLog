@@ -8,6 +8,7 @@ public class Group {
 
     private String mGroupName;
     private String mText;
+    private String mTag;
 
     public Group(String group) {
         mGroupName = group;
@@ -31,11 +32,20 @@ public class Group {
         return this;
     }
 
+    public Group tag(String tag) {
+        mTag = tag;
+        return this;
+    }
+
     String getGroupName() {
         return mGroupName;
     }
 
     String getText() {
         return mText;
+    }
+
+    public String getTag() {
+        return mTag;
     }
 }
