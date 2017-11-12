@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="SimpleLog settings:"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+        <CheckBox
+            android:id="@+id/log_debug_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOG_DEBUG"/>
+
+        <CheckBox
+            android:id="@+id/log_error_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOG_ERROR"/>
+
+        <CheckBox
+            android:id="@+id/log_info_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOG_INFO"/>
+
+        <CheckBox
+            android:id="@+id/log_verbose_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOG_VERBOSE"/>
+
+        <CheckBox
+            android:id="@+id/log_warning_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOG_WARNING"/>
+
+        <CheckBox
+            android:id="@+id/log_assert_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOG_ASSERT"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="Test functionality:"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <Button
+                    android:id="@+id/print_d"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_d"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/print_e"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_e"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/print_i"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_i"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/print_v"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_v"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/print_w"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_w"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/print_wtf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_wtf"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/print_fd_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_fd_empty"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/print_fe_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_fe_empty"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/print_fi_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_fi_empty"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/print_fv_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_fv_empty"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/print_fw_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_fw_empty"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/print_fwtf_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_fwtf_empty"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/print_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_group"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/print_gen_test"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_gen_test"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/print_throwable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_throwable"
+                    android:textAllCaps="false"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <Button
+                    android:id="@+id/print_fd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_fd"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/print_fe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_fe"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/print_fi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_fi"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/print_fv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_fv"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/print_fw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_fw"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/print_fwtf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_fwtf"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/print_td"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_td"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/print_te"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_te"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/print_ti"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_ti"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/print_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_tv"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/print_tw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_tw"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/print_twtf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_twtf"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/print_gen_setup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_gen_setup"
+                    android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/print_gen_keycode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_gen_keycode"
+                    android:textAllCaps="false"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

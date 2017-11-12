@@ -1,3 +1,33 @@
 <resources>
     <string name="app_name">SimpleLog Demo</string>
+    <string name="button_d">"d(\"TEST_LOG\")"</string>
+    <string name="button_e">"e(\"TEST_LOG\")"</string>
+    <string name="button_i">"i(\"TEST_LOG\")"</string>
+    <string name="button_v">"v(\"TEST_LOG\")"</string>
+    <string name="button_w">"w(\"TEST_LOG\")"</string>
+    <string name="button_wtf">"wtf(\"TEST_LOG\")"</string>
+    <string name="button_fd_empty">"fd()"</string>
+    <string name="button_fe_empty">"fe()"</string>
+    <string name="button_fi_empty">"fi()"</string>
+    <string name="button_fv_empty">"fv()"</string>
+    <string name="button_fw_empty">"fw()"</string>
+    <string name="button_fwtf_empty">"fwtf()"</string>
+    <string name="button_fd">"fd(\"TEST_LOG\")"</string>
+    <string name="button_fe">"fe(\"TEST_LOG\")"</string>
+    <string name="button_fi">"fi(\"TEST_LOG\")"</string>
+    <string name="button_fv">"fv(\"TEST_LOG\")"</string>
+    <string name="button_fw">"fw(\"TEST_LOG\")"</string>
+    <string name="button_fwtf">"fwtf(\"TEST_LOG\")"</string>
+    <string name="button_td">"td(\"TEST_TAG\", \"TEST_LOG\")"</string>
+    <string name="button_te">"te(\"TEST_TAG\", \"TEST_LOG\")"</string>
+    <string name="button_ti">"ti(\"TEST_TAG\", \"TEST_LOG\")"</string>
+    <string name="button_tv">"tv(\"TEST_TAG\", \"TEST_LOG\")"</string>
+    <string name="button_tw">"tw(\"TEST_TAG\", \"TEST_LOG\")"</string>
+    <string name="button_twtf">"twtf(\"TEST_TAG\", \"TEST_LOG\")"</string>
+    <string name="button_group">"d(new Group(\"TITLE\").append(\"Line 1\").append(\"Line 2\").tag(\"TEST_TAG\"))"</string>
+    <string name="button_gen_test">d(ValueMapper.test(TEST_2))</string>
+    <string name="button_gen_setup">i(ValueMapper.setup(SETUP_3))</string>
+    <string name="button_gen_keycode">e(ValueMapper.keyCode(KeyEvent.KEYCODE_DPAD_CENTER))</string>
+    <string name="button_throwable">e(new TestThrowable())</string>
+
 </resources>

@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.don11995.log.example"
-        minSdkVersion versions.minSdkVersion
+        minSdkVersion 14
         targetSdkVersion versions.targetSdkVersion
         versionCode versions.versionCode
         versionName versions.versionName
@@ -16,6 +16,7 @@ android {
 
 dependencies {
     annotationProcessor project(':simple-log-processor')
+    implementation "com.android.support:appcompat-v7:$versions.supportLibrary"
     implementation "com.android.support:support-annotations:$versions.supportLibrary"
     implementation project(':simple-log')
 }

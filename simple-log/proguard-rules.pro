@@ -34,4 +34,5 @@
 -assumenosideeffects class com.don11995.log.Group {
     public void <init>(...);
     public *** append(...);
+    public *** tag(...);
 }

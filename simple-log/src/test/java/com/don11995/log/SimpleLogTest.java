@@ -188,11 +188,51 @@ public class SimpleLogTest {
         SimpleLog.tfd(finalTag);
         SimpleLog.td(finalTag, "TestLog");
         SimpleLog.tfd(finalTag, "TestLog");
+        SimpleLog.tfe(null);
+        SimpleLog.tfe(finalTag);
+        SimpleLog.te(finalTag, "TestLog");
+        SimpleLog.tfe(finalTag, "TestLog");
+        SimpleLog.tfi(null);
+        SimpleLog.tfi(finalTag);
+        SimpleLog.ti(finalTag, "TestLog");
+        SimpleLog.tfi(finalTag, "TestLog");
+        SimpleLog.tfv(null);
+        SimpleLog.tfv(finalTag);
+        SimpleLog.tv(finalTag, "TestLog");
+        SimpleLog.tfv(finalTag, "TestLog");
+        SimpleLog.tfw(null);
+        SimpleLog.tfw(finalTag);
+        SimpleLog.tw(finalTag, "TestLog");
+        SimpleLog.tfw(finalTag, "TestLog");
+        SimpleLog.tfwtf(null);
+        SimpleLog.tfwtf(finalTag);
+        SimpleLog.twtf(finalTag, "TestLog");
+        SimpleLog.tfwtf(finalTag, "TestLog");
 
         assertLog().hasDebugMessage(classTag, finalLog1)
                    .hasDebugMessage(finalTag, finalLog1)
                    .hasDebugMessage(finalTag, finalLog2)
                    .hasDebugMessage(finalTag, finalLog3)
+                   .hasErrorMessage(classTag, finalLog1)
+                   .hasErrorMessage(finalTag, finalLog1)
+                   .hasErrorMessage(finalTag, finalLog2)
+                   .hasErrorMessage(finalTag, finalLog3)
+                   .hasInfoMessage(classTag, finalLog1)
+                   .hasInfoMessage(finalTag, finalLog1)
+                   .hasInfoMessage(finalTag, finalLog2)
+                   .hasInfoMessage(finalTag, finalLog3)
+                   .hasVerboseMessage(classTag, finalLog1)
+                   .hasVerboseMessage(finalTag, finalLog1)
+                   .hasVerboseMessage(finalTag, finalLog2)
+                   .hasVerboseMessage(finalTag, finalLog3)
+                   .hasWarnMessage(classTag, finalLog1)
+                   .hasWarnMessage(finalTag, finalLog1)
+                   .hasWarnMessage(finalTag, finalLog2)
+                   .hasWarnMessage(finalTag, finalLog3)
+                   .hasAssertMessage(classTag, finalLog1)
+                   .hasAssertMessage(finalTag, finalLog1)
+                   .hasAssertMessage(finalTag, finalLog2)
+                   .hasAssertMessage(finalTag, finalLog3)
                    .hasNoMoreMessages();
     }
 
@@ -202,7 +242,7 @@ public class SimpleLogTest {
         String finalLog = "testPrintNull()";
 
         SimpleLog.d(null);
-        SimpleLog.d(null, null);
+        SimpleLog.d(null, (Object) null);
         SimpleLog.fd(null);
         SimpleLog.tfd(null);
         SimpleLog.tfd(null, null);
@@ -211,6 +251,24 @@ public class SimpleLogTest {
                    .hasDebugMessage(finalTag, finalLog)
                    .hasDebugMessage(finalTag, finalLog)
                    .hasNoMoreMessages();
+    }
+
+    @Test
+    public void testPrintAbstractInnerClasses() {
+        final String testTag = "SimpleLogTest";
+        final String testLog = "TestLog";
+        final String testLog2 = "onEvent():\nTestLog";
+        AbstractInnerClass.TestListener listener = new AbstractInnerClass.TestListener() {
+            @Override
+            public void onEvent() {
+                SimpleLog.d(testLog);
+                SimpleLog.fd(testLog);
+                assertLog().hasDebugMessage(testTag, testLog)
+                           .hasDebugMessage(testTag, testLog2)
+                           .hasNoMoreMessages();
+            }
+        };
+        listener.onEvent();
     }
 
 }

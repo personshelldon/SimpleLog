@@ -9,7 +9,7 @@ buildscript {
         'versionCode' : 20,
         'supportLibrary' : '26.1.0',
         'buildToolsVersion' : '26.0.2',
-        'versionName' : '1.1.7',
+        'versionName' : '1.2.0',
     ]
 
     repositories {

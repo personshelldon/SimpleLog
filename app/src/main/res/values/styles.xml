@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorControlHighlight">@color/colorControlHighlight</item>
+        <item name="android:textAppearanceMedium">@style/TextStyle.Medium</item>
+        <!--<item name="android:checkboxStyle">@style/Widget.CheckBox</item>-->
+        <!--<item name="checkboxStyle">@style/Widget.CheckBox</item>-->
+    </style>
+
+    <style name="TextStyle.Medium" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <!--<style name="Widget.CheckBox" parent="Widget.AppCompat.CompoundButton.CheckBox">-->
+    <!--&lt;!&ndash;<item name="android:buttonTint">@color/colorPrimary</item>&ndash;&gt;-->
+    <!--<item name="android:tint">@color/colorPrimary</item>-->
+    <!--<item name="tint">@color/colorPrimary</item>-->
+    <!--</style>-->
+
+</resources>
