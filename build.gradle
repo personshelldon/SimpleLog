@@ -6,10 +6,10 @@ buildscript {
         'compileSdkVersion': 26,
         'minSdkVersion': 9,
         'targetSdkVersion': 26,
-        'versionCode' : 20,
+        'versionCode' : 21,
         'supportLibrary' : '26.1.0',
         'buildToolsVersion' : '26.0.2',
-        'versionName' : '1.2.0',
+        'versionName' : '1.2.1',
     ]
 
     repositories {

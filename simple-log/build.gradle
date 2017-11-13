@@ -16,7 +16,6 @@ android {
         targetSdkVersion versions.targetSdkVersion
         versionCode versions.versionCode
         versionName versions.versionName
-        consumerProguardFiles "proguard-rules.pro"
     }
 }
 
