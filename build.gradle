@@ -3,13 +3,13 @@
 buildscript {
 
     ext.versions = [
-        'compileSdkVersion': 26,
+        'compileSdkVersion': 27,
         'minSdkVersion': 9,
-        'targetSdkVersion': 26,
-        'versionCode' : 21,
-        'supportLibrary' : '26.1.0',
-        'buildToolsVersion' : '26.0.2',
-        'versionName' : '1.2.1',
+        'targetSdkVersion': 27,
+        'versionCode' : 22,
+        'supportLibrary' : '27.0.1',
+        'buildToolsVersion' : '27.0.1',
+        'versionName' : '1.2.2',
     ]
 
     repositories {

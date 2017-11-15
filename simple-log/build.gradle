@@ -22,8 +22,8 @@ android {
 dependencies {
     testImplementation "org.robolectric:robolectric:3.5.1"
     testImplementation "junit:junit:4.12"
+    testImplementation "com.google.truth:truth:0.36"
     implementation "com.android.support:support-annotations:$versions.supportLibrary"
-    implementation "com.google.truth:truth:0.36"
 }
 
 ext {
