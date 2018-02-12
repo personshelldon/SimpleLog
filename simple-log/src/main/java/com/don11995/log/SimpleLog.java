@@ -1,3 +1,8 @@
+/*
+ * Modified by Vladyslav Lozytskyi on 12.02.18 13:14
+ * Copyright (c) 2018. All rights reserved.
+ */
+
 package com.don11995.log;
 
 import android.os.Build;
@@ -173,12 +178,12 @@ public class SimpleLog {
         if (groupName == null) groupName = "";
         char buffer[] = new char[sDividerBlockSize];
         Arrays.fill(buffer,
-                    sDividerChar);
+                sDividerChar);
         String divider = new String(buffer);
         format = divider + groupName + divider + "\n" + format;
         buffer = new char[groupName.length()];
         Arrays.fill(buffer,
-                    sDividerChar);
+                sDividerChar);
         format += "\n" + divider + divider + new String(buffer);
         return format;
     }
@@ -741,8 +746,8 @@ public class SimpleLog {
             tag = tag.substring(0, MAX_TAG_LENGTH);
         }
         message = message.replaceAll("\r", "")
-                         .replaceAll("\n+", "\n")
-                         .trim();
+                .replaceAll("\n+", "\n")
+                .trim();
         if (printMethodName) {
             String method = element.getMethodName();
             if (message.isEmpty()) {

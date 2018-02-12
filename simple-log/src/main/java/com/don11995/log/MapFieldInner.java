@@ -1,5 +1,5 @@
 /*
- * Modified by Vladyslav Lozytskyi on 12.02.18 13:09
+ * Modified by Vladyslav Lozytskyi on 12.02.18 13:14
  * Copyright (c) 2018. All rights reserved.
  */
 
@@ -11,9 +11,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.SOURCE)
-@Target({ElementType.METHOD})
-public @interface MapClassInner {
-    String[] methods();
+@Target(ElementType.METHOD)
+public @interface MapFieldInner {
+    String method();
 
-    String[] prefixes();
+    String[] names();
 }

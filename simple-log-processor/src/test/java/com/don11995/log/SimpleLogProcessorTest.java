@@ -1,3 +1,8 @@
+/*
+ * Modified by Vladyslav Lozytskyi on 12.02.18 13:09
+ * Copyright (c) 2018. All rights reserved.
+ */
+
 package com.don11995.log;
 
 import org.junit.Test;
@@ -23,6 +28,8 @@ public class SimpleLogProcessorTest {
         assertNotNull(valueMapperExampleMethod2);
         Method innerTestMethod = valueMapperClass.getDeclaredMethod("innerTest", Object.class);
         assertNotNull(innerTestMethod);
+        Method audioFocusMethod = valueMapperClass.getDeclaredMethod("audioFocus", Object.class);
+        assertNotNull(innerTestMethod);
 
         int test0 = ClassToTest.TEST_0;
         int test1 = ClassToTest.TEST_1;
@@ -32,6 +39,7 @@ public class SimpleLogProcessorTest {
         float exampleTest5 = 5.65f;
         char exampleTest6 = '6';
         int exampleTest7 = 7;
+        int exampleTest8 = Constants.AUDIOFOCUS_GAIN_TRANSIENT;
 
         String test0Mapped = (String) valueMapperTestMethod.invoke(null, test0);
         String test1Mapped = (String) valueMapperTestMethod.invoke(null, test1);
@@ -51,6 +59,8 @@ public class SimpleLogProcessorTest {
         String unknown2 = (String) valueMapperExampleMethod.invoke(null, ClassToTest.UNKNOWN);
         String nullString2 = (String) valueMapperExampleMethod.invoke(null, (Object) null);
 
+        String exampleTest8Mapped = (String) audioFocusMethod.invoke(null, exampleTest8);
+
         assertEquals("TEST_0", test0Mapped);
         assertEquals("TEST_1", test1Mapped);
         assertEquals("TEST_2", test2Mapped);
@@ -68,5 +78,7 @@ public class SimpleLogProcessorTest {
         assertEquals("null", nullString1);
         assertEquals("-1000", unknown2);
         assertEquals("null", nullString2);
+
+        assertEquals("AUDIOFOCUS_GAIN_TRANSIENT", exampleTest8Mapped);
     }
 }

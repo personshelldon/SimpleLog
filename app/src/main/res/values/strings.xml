@@ -1,3 +1,8 @@
+<!--
+  ~ Modified by Vladyslav Lozytskyi on 12.02.18 11:44
+  ~ Copyright (c) 2018. All rights reserved.
+  -->
+
 <resources>
     <string name="app_name">SimpleLog Demo</string>
     <string name="button_d">"d(\"TEST_LOG\")"</string>
@@ -28,6 +33,7 @@
     <string name="button_gen_test">d(ValueMapper.test(TEST_2))</string>
     <string name="button_gen_setup">i(ValueMapper.setup(SETUP_3))</string>
     <string name="button_gen_keycode">e(ValueMapper.keyCode(KeyEvent.KEYCODE_DPAD_CENTER))</string>
+    <string name="button_gen_audiofocus">e(ValueMapper.audioFocus(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT))</string>
     <string name="button_throwable">e(new TestThrowable())</string>
 
 </resources>

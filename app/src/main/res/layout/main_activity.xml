@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Modified by Vladyslav Lozytskyi on 12.02.18 13:14
+  ~ Copyright (c) 2018. All rights reserved.
+  -->
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
@@ -178,6 +183,13 @@
                     android:layout_height="wrap_content"
                     android:text="@string/button_throwable"
                     android:textAllCaps="false"/>
+
+                <Button
+                    android:id="@+id/print_gen_audiofocus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_gen_audiofocus"
+                    android:textAllCaps="false" />
 
             </LinearLayout>
 

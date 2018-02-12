@@ -1,3 +1,8 @@
+/*
+ * Modified by Vladyslav Lozytskyi on 12.02.18 13:09
+ * Copyright (c) 2018. All rights reserved.
+ */
+
 package com.don11995.log;
 
 import java.io.IOException;
@@ -24,8 +29,9 @@ import javax.lang.model.util.Types;
 import javax.tools.JavaFileObject;
 
 @SupportedAnnotationTypes({
-        "com.don11995.log.MapClass",
         "com.don11995.log.MapField",
+        "com.don11995.log.MapFieldInner",
+        "com.don11995.log.MapClass",
         "com.don11995.log.MapClassInner"
 })
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
@@ -57,25 +63,76 @@ public class ValueMapperProcessor
             }
             if (!variableElement.getModifiers().contains(Modifier.FINAL)) {
                 throw new IllegalArgumentException("To process @MapField annotation the variable \""
-                                                           + name
-                                                           + "\" must be final");
+                        + name
+                        + "\" must be final");
             }
             if (!typeClassKind.isPrimitive()
                     && !"java.lang.String".equals(typeClassName)) {
                 throw new IllegalArgumentException("To process @MapField annotation the variable \""
-                                                           + name
-                                                           + "\" must be a primitive or a String"
-                                                           + ", but the variable is of type \""
-                                                           + typeClass
-                                                           + "\"");
+                        + name
+                        + "\" must be a primitive or a String"
+                        + ", but the variable is of type \""
+                        + typeClass
+                        + "\"");
             }
             if (value == null) {
                 throw new IllegalArgumentException("To process @MapField annotation the variable \""
-                                                           + name
-                                                           + "\" must not be null");
+                        + name
+                        + "\" must not be null");
             }
             Map<Object, String> groupMap = getAndAddGroup(groupName);
             groupMap.put(value, name);
+        }
+    }
+
+    private void processMapFieldInner(RoundEnvironment roundEnvironment) {
+        for (Element element : roundEnvironment.getElementsAnnotatedWith(MapFieldInner.class)) {
+            if (element.getKind() != ElementKind.METHOD) continue;
+            MapFieldInner annotation = element.getAnnotation(MapFieldInner.class);
+            String method = annotation.method();
+            String[] namesArray = annotation.names();
+            ExecutableType executableMethod = (ExecutableType) element.asType();
+            if (method.isEmpty()) {
+                throw new IllegalArgumentException(
+                        "@MapFieldInner \"method\" can not be empty");
+            }
+            if (namesArray.length == 0) {
+                throw new IllegalArgumentException(
+                        "@MapFieldInner \"names\" can not be empty");
+            }
+
+            for (String name : namesArray) {
+                if (name.isEmpty()) {
+                    throw new IllegalArgumentException("@MapFieldInner some names are empty or "
+                            + "null");
+                }
+            }
+
+            if (executableMethod.getParameterTypes().size() != 1) {
+                throw new IllegalArgumentException("@MapFieldInner wrong number of method "
+                        + "parameters. Must be 1");
+            }
+
+            TypeMirror param = executableMethod.getParameterTypes().get(0);
+            Types TypeUtils = processingEnv.getTypeUtils();
+            TypeElement typeElement = (TypeElement) TypeUtils.asElement(param);
+
+            Elements elementUtil = processingEnv.getElementUtils();
+            TypeElement typeClass = elementUtil.getTypeElement(typeElement.getQualifiedName()
+                    .toString());
+            for (String prefix : namesArray) {
+                Map<Object, String> groupMap = getAndAddGroup(method);
+                for (Element enclosedElement : typeClass.getEnclosedElements()) {
+                    if (enclosedElement.getKind() != ElementKind.FIELD) continue;
+                    VariableElement variableElement = (VariableElement) enclosedElement;
+                    Object value = variableElement.getConstantValue();
+                    String name = variableElement.getSimpleName().toString();
+                    if (value == null) continue;
+                    if (name.equals(prefix)) {
+                        groupMap.put(value, name);
+                    }
+                }
+            }
         }
     }
 
@@ -129,7 +186,8 @@ public class ValueMapperProcessor
             ExecutableType executableMethod = (ExecutableType) element.asType();
             if (methodsArray.length == 0 || methodsArray.length != prefixesArray.length) {
                 throw new IllegalArgumentException(
-                        "@MapClassInner  \"methods\" and \"prefixes\" arrays must be the same length");
+                        "@MapClassInner  \"methods\" and \"prefixes\" arrays must be the same " +
+                                "length");
             }
 
             for (int i = 0; i < methodsArray.length; i++) {
@@ -144,7 +202,7 @@ public class ValueMapperProcessor
 
             if (executableMethod.getParameterTypes().size() != 1) {
                 throw new IllegalArgumentException("@MapClassInner wrong number of method "
-                                                           + "parameters. Must be 1");
+                        + "parameters. Must be 1");
             }
 
             TypeMirror param = executableMethod.getParameterTypes().get(0);
@@ -153,7 +211,7 @@ public class ValueMapperProcessor
 
             Elements elementUtil = processingEnv.getElementUtils();
             TypeElement typeClass = elementUtil.getTypeElement(typeElement.getQualifiedName()
-                                                                          .toString());
+                    .toString());
             for (int i = 0; i < methodsArray.length; i++) {
                 String func = methodsArray[i];
                 String prefix = prefixesArray[i];
@@ -175,8 +233,8 @@ public class ValueMapperProcessor
     private void createJavaFile(String text) {
         try {
             JavaFileObject source = processingEnv.getFiler()
-                                                 .createSourceFile(PACKAGE_NAME + '.' +
-                                                                           CLASS_NAME);
+                    .createSourceFile(PACKAGE_NAME + '.' +
+                            CLASS_NAME);
             Writer writer = source.openWriter();
             writer.write(text);
             writer.flush();
@@ -194,6 +252,7 @@ public class ValueMapperProcessor
         StringBuilder builder = new StringBuilder();
 
         processMapField(roundEnvironment);
+        processMapFieldInner(roundEnvironment);
         processMapClass(roundEnvironment);
         processMapClassInner(roundEnvironment);
 

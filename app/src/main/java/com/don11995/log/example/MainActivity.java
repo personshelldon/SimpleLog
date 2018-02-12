@@ -1,5 +1,11 @@
+/*
+ * Modified by Vladyslav Lozytskyi on 12.02.18 13:08
+ * Copyright (c) 2018. All rights reserved.
+ */
+
 package com.don11995.log.example;
 
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -102,6 +108,7 @@ public class MainActivity
         findViewById(R.id.print_gen_test).setOnClickListener(this);
         findViewById(R.id.print_gen_setup).setOnClickListener(this);
         findViewById(R.id.print_gen_keycode).setOnClickListener(this);
+        findViewById(R.id.print_gen_audiofocus).setOnClickListener(this);
         findViewById(R.id.print_throwable).setOnClickListener(this);
 
         mDebugCheckbox = findViewById(R.id.log_debug_checkbox);
@@ -229,6 +236,9 @@ public class MainActivity
                 break;
             case R.id.print_gen_keycode:
                 SimpleLog.e(ValueMapper.keyCode(KeyEvent.KEYCODE_DPAD_CENTER));
+                break;
+            case R.id.print_gen_audiofocus:
+                SimpleLog.e(ValueMapper.audioFocus(AudioManager.AUDIOFOCUS_GAIN_TRANSIENT));
                 break;
             case R.id.print_throwable:
                 SimpleLog.e(new TestThrowable());

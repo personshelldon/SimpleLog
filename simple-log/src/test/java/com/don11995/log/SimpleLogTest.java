@@ -1,3 +1,8 @@
+/*
+ * Modified by Vladyslav Lozytskyi on 12.02.18 13:14
+ * Copyright (c) 2018. All rights reserved.
+ */
+
 package com.don11995.log;
 
 import android.os.Build;
@@ -22,12 +27,12 @@ public class SimpleLogTest {
         SimpleLog.fw();
         SimpleLog.fwtf();
         assertLog().hasDebugMessage("SimpleLogTest", "testPrintFunctionNames()")
-                   .hasInfoMessage("SimpleLogTest", "testPrintFunctionNames()")
-                   .hasErrorMessage("SimpleLogTest", "testPrintFunctionNames()")
-                   .hasVerboseMessage("SimpleLogTest", "testPrintFunctionNames()")
-                   .hasWarnMessage("SimpleLogTest", "testPrintFunctionNames()")
-                   .hasAssertMessage("SimpleLogTest", "testPrintFunctionNames()")
-                   .hasNoMoreMessages();
+                .hasInfoMessage("SimpleLogTest", "testPrintFunctionNames()")
+                .hasErrorMessage("SimpleLogTest", "testPrintFunctionNames()")
+                .hasVerboseMessage("SimpleLogTest", "testPrintFunctionNames()")
+                .hasWarnMessage("SimpleLogTest", "testPrintFunctionNames()")
+                .hasAssertMessage("SimpleLogTest", "testPrintFunctionNames()")
+                .hasNoMoreMessages();
     }
 
     @Test
@@ -39,12 +44,12 @@ public class SimpleLogTest {
         SimpleLog.w("test5");
         SimpleLog.wtf("test6");
         assertLog().hasDebugMessage("SimpleLogTest", "test1")
-                   .hasInfoMessage("SimpleLogTest", "test2")
-                   .hasErrorMessage("SimpleLogTest", "test3")
-                   .hasVerboseMessage("SimpleLogTest", "test4")
-                   .hasWarnMessage("SimpleLogTest", "test5")
-                   .hasAssertMessage("SimpleLogTest", "test6")
-                   .hasNoMoreMessages();
+                .hasInfoMessage("SimpleLogTest", "test2")
+                .hasErrorMessage("SimpleLogTest", "test3")
+                .hasVerboseMessage("SimpleLogTest", "test4")
+                .hasWarnMessage("SimpleLogTest", "test5")
+                .hasAssertMessage("SimpleLogTest", "test6")
+                .hasNoMoreMessages();
     }
 
     @Test
@@ -57,17 +62,17 @@ public class SimpleLogTest {
         SimpleLog.fwtf("test6");
         assertLog().hasDebugMessage("SimpleLogTest", "testPrintWithFunctionName():"
                 + "\ntest1")
-                   .hasInfoMessage("SimpleLogTest", "testPrintWithFunctionName():"
-                           + "\ntest2")
-                   .hasErrorMessage("SimpleLogTest", "testPrintWithFunctionName():"
-                           + "\ntest3")
-                   .hasVerboseMessage("SimpleLogTest", "testPrintWithFunctionName():"
-                           + "\ntest4")
-                   .hasWarnMessage("SimpleLogTest", "testPrintWithFunctionName():"
-                           + "\ntest5")
-                   .hasAssertMessage("SimpleLogTest", "testPrintWithFunctionName():"
-                           + "\ntest6")
-                   .hasNoMoreMessages();
+                .hasInfoMessage("SimpleLogTest", "testPrintWithFunctionName():"
+                        + "\ntest2")
+                .hasErrorMessage("SimpleLogTest", "testPrintWithFunctionName():"
+                        + "\ntest3")
+                .hasVerboseMessage("SimpleLogTest", "testPrintWithFunctionName():"
+                        + "\ntest4")
+                .hasWarnMessage("SimpleLogTest", "testPrintWithFunctionName():"
+                        + "\ntest5")
+                .hasAssertMessage("SimpleLogTest", "testPrintWithFunctionName():"
+                        + "\ntest6")
+                .hasNoMoreMessages();
     }
 
     @Test
@@ -88,12 +93,12 @@ public class SimpleLogTest {
         SimpleLog.v(group);
         SimpleLog.wtf(group);
         assertLog().hasDebugMessage("SimpleLogTest", finalResult)
-                   .hasErrorMessage("SimpleLogTest", finalResult)
-                   .hasInfoMessage("SimpleLogTest", finalResult)
-                   .hasWarnMessage("SimpleLogTest", finalResult)
-                   .hasVerboseMessage("SimpleLogTest", finalResult)
-                   .hasAssertMessage("SimpleLogTest", finalResult)
-                   .hasNoMoreMessages();
+                .hasErrorMessage("SimpleLogTest", finalResult)
+                .hasInfoMessage("SimpleLogTest", finalResult)
+                .hasWarnMessage("SimpleLogTest", finalResult)
+                .hasVerboseMessage("SimpleLogTest", finalResult)
+                .hasAssertMessage("SimpleLogTest", finalResult)
+                .hasNoMoreMessages();
     }
 
     @Test
@@ -120,9 +125,9 @@ public class SimpleLogTest {
         SimpleLog.wtf("test12");
 
         assertLog().hasDebugMessage("SimpleLogTest", "test1")
-                   .hasInfoMessage("SimpleLogTest", "test2")
-                   .hasAssertMessage("SimpleLogTest", "test6")
-                   .hasNoMoreMessages();
+                .hasInfoMessage("SimpleLogTest", "test2")
+                .hasAssertMessage("SimpleLogTest", "test6")
+                .hasNoMoreMessages();
 
         SimpleLog.enableAllLogs();
     }
@@ -141,12 +146,12 @@ public class SimpleLogTest {
         SimpleLog.w(Resources.LONG_TEXT_4000_N);
 
         assertLog().hasDebugMessage("SimpleLogTest", finalLongText1)
-                   .hasDebugMessage("SimpleLogTest", finalLongText2)
-                   .hasErrorMessage("SimpleLogTest", finalLongText3)
-                   .hasInfoMessage("SimpleLogTest", finalLongText3)
-                   .hasVerboseMessage("SimpleLogTest", finalLongText4)
-                   .hasWarnMessage("SimpleLogTest", finalLongText4)
-                   .hasNoMoreMessages();
+                .hasDebugMessage("SimpleLogTest", finalLongText2)
+                .hasErrorMessage("SimpleLogTest", finalLongText3)
+                .hasInfoMessage("SimpleLogTest", finalLongText3)
+                .hasVerboseMessage("SimpleLogTest", finalLongText4)
+                .hasWarnMessage("SimpleLogTest", finalLongText4)
+                .hasNoMoreMessages();
     }
 
     @Test
@@ -163,17 +168,17 @@ public class SimpleLogTest {
         SimpleLog.fw(Resources.LONG_TEXT_4000_N);
 
         assertLog().hasDebugMessage("SimpleLogTest", "testPrintVeryBigLogWithFunctionName():")
-                   .hasDebugMessage("SimpleLogTest", finalLongText1)
-                   .hasDebugMessage("SimpleLogTest", finalLongText2)
-                   .hasErrorMessage("SimpleLogTest", "testPrintVeryBigLogWithFunctionName():")
-                   .hasErrorMessage("SimpleLogTest", finalLongText3)
-                   .hasInfoMessage("SimpleLogTest", "testPrintVeryBigLogWithFunctionName():")
-                   .hasInfoMessage("SimpleLogTest", finalLongText3)
-                   .hasVerboseMessage("SimpleLogTest", "testPrintVeryBigLogWithFunctionName():")
-                   .hasVerboseMessage("SimpleLogTest", finalLongText4)
-                   .hasWarnMessage("SimpleLogTest", "testPrintVeryBigLogWithFunctionName():")
-                   .hasWarnMessage("SimpleLogTest", finalLongText4)
-                   .hasNoMoreMessages();
+                .hasDebugMessage("SimpleLogTest", finalLongText1)
+                .hasDebugMessage("SimpleLogTest", finalLongText2)
+                .hasErrorMessage("SimpleLogTest", "testPrintVeryBigLogWithFunctionName():")
+                .hasErrorMessage("SimpleLogTest", finalLongText3)
+                .hasInfoMessage("SimpleLogTest", "testPrintVeryBigLogWithFunctionName():")
+                .hasInfoMessage("SimpleLogTest", finalLongText3)
+                .hasVerboseMessage("SimpleLogTest", "testPrintVeryBigLogWithFunctionName():")
+                .hasVerboseMessage("SimpleLogTest", finalLongText4)
+                .hasWarnMessage("SimpleLogTest", "testPrintVeryBigLogWithFunctionName():")
+                .hasWarnMessage("SimpleLogTest", finalLongText4)
+                .hasNoMoreMessages();
     }
 
     @Test
@@ -210,30 +215,30 @@ public class SimpleLogTest {
         SimpleLog.tfwtf(finalTag, "TestLog");
 
         assertLog().hasDebugMessage(classTag, finalLog1)
-                   .hasDebugMessage(finalTag, finalLog1)
-                   .hasDebugMessage(finalTag, finalLog2)
-                   .hasDebugMessage(finalTag, finalLog3)
-                   .hasErrorMessage(classTag, finalLog1)
-                   .hasErrorMessage(finalTag, finalLog1)
-                   .hasErrorMessage(finalTag, finalLog2)
-                   .hasErrorMessage(finalTag, finalLog3)
-                   .hasInfoMessage(classTag, finalLog1)
-                   .hasInfoMessage(finalTag, finalLog1)
-                   .hasInfoMessage(finalTag, finalLog2)
-                   .hasInfoMessage(finalTag, finalLog3)
-                   .hasVerboseMessage(classTag, finalLog1)
-                   .hasVerboseMessage(finalTag, finalLog1)
-                   .hasVerboseMessage(finalTag, finalLog2)
-                   .hasVerboseMessage(finalTag, finalLog3)
-                   .hasWarnMessage(classTag, finalLog1)
-                   .hasWarnMessage(finalTag, finalLog1)
-                   .hasWarnMessage(finalTag, finalLog2)
-                   .hasWarnMessage(finalTag, finalLog3)
-                   .hasAssertMessage(classTag, finalLog1)
-                   .hasAssertMessage(finalTag, finalLog1)
-                   .hasAssertMessage(finalTag, finalLog2)
-                   .hasAssertMessage(finalTag, finalLog3)
-                   .hasNoMoreMessages();
+                .hasDebugMessage(finalTag, finalLog1)
+                .hasDebugMessage(finalTag, finalLog2)
+                .hasDebugMessage(finalTag, finalLog3)
+                .hasErrorMessage(classTag, finalLog1)
+                .hasErrorMessage(finalTag, finalLog1)
+                .hasErrorMessage(finalTag, finalLog2)
+                .hasErrorMessage(finalTag, finalLog3)
+                .hasInfoMessage(classTag, finalLog1)
+                .hasInfoMessage(finalTag, finalLog1)
+                .hasInfoMessage(finalTag, finalLog2)
+                .hasInfoMessage(finalTag, finalLog3)
+                .hasVerboseMessage(classTag, finalLog1)
+                .hasVerboseMessage(finalTag, finalLog1)
+                .hasVerboseMessage(finalTag, finalLog2)
+                .hasVerboseMessage(finalTag, finalLog3)
+                .hasWarnMessage(classTag, finalLog1)
+                .hasWarnMessage(finalTag, finalLog1)
+                .hasWarnMessage(finalTag, finalLog2)
+                .hasWarnMessage(finalTag, finalLog3)
+                .hasAssertMessage(classTag, finalLog1)
+                .hasAssertMessage(finalTag, finalLog1)
+                .hasAssertMessage(finalTag, finalLog2)
+                .hasAssertMessage(finalTag, finalLog3)
+                .hasNoMoreMessages();
     }
 
     @Test
@@ -248,9 +253,9 @@ public class SimpleLogTest {
         SimpleLog.tfd(null, null);
 
         assertLog().hasDebugMessage(finalTag, finalLog)
-                   .hasDebugMessage(finalTag, finalLog)
-                   .hasDebugMessage(finalTag, finalLog)
-                   .hasNoMoreMessages();
+                .hasDebugMessage(finalTag, finalLog)
+                .hasDebugMessage(finalTag, finalLog)
+                .hasNoMoreMessages();
     }
 
     @Test
@@ -264,8 +269,8 @@ public class SimpleLogTest {
                 SimpleLog.d(testLog);
                 SimpleLog.fd(testLog);
                 assertLog().hasDebugMessage(testTag, testLog)
-                           .hasDebugMessage(testTag, testLog2)
-                           .hasNoMoreMessages();
+                        .hasDebugMessage(testTag, testLog2)
+                        .hasNoMoreMessages();
             }
         };
         listener.onEvent();
