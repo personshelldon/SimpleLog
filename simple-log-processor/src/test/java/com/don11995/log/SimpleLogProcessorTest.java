@@ -1,5 +1,5 @@
 /*
- * Modified by Vladyslav Lozytskyi on 12.02.18 13:09
+ * Modified by Vladyslav Lozytskyi on 19.03.18 12:57
  * Copyright (c) 2018. All rights reserved.
  */
 
@@ -14,6 +14,7 @@ import static org.junit.Assert.assertNotNull;
 
 public class SimpleLogProcessorTest {
 
+    @SuppressWarnings("unchecked")
     @Test
     public void testAnnotationProcessor() throws Throwable {
         Class valueMapperClass = Class.forName("com.don11995.log.ValueMapper");

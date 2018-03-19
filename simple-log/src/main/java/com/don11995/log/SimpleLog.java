@@ -1,5 +1,5 @@
 /*
- * Modified by Vladyslav Lozytskyi on 12.02.18 13:14
+ * Modified by Vladyslav Lozytskyi on 19.03.18 12:01
  * Copyright (c) 2018. All rights reserved.
  */
 
@@ -753,7 +753,7 @@ public class SimpleLog {
             if (message.isEmpty()) {
                 message = method + "()";
             } else {
-                message = method + "():\n" + message;
+                message = method + "() -> " + message;
             }
         }
         if (message.isEmpty()) return;

@@ -1,5 +1,5 @@
 /*
- * Modified by Vladyslav Lozytskyi on 12.02.18 13:14
+ * Modified by Vladyslav Lozytskyi on 19.03.18 12:23
  * Copyright (c) 2018. All rights reserved.
  */
 
@@ -60,18 +60,18 @@ public class SimpleLogTest {
         SimpleLog.fv("test4");
         SimpleLog.fw("test5");
         SimpleLog.fwtf("test6");
-        assertLog().hasDebugMessage("SimpleLogTest", "testPrintWithFunctionName():"
-                + "\ntest1")
-                .hasInfoMessage("SimpleLogTest", "testPrintWithFunctionName():"
-                        + "\ntest2")
-                .hasErrorMessage("SimpleLogTest", "testPrintWithFunctionName():"
-                        + "\ntest3")
-                .hasVerboseMessage("SimpleLogTest", "testPrintWithFunctionName():"
-                        + "\ntest4")
-                .hasWarnMessage("SimpleLogTest", "testPrintWithFunctionName():"
-                        + "\ntest5")
-                .hasAssertMessage("SimpleLogTest", "testPrintWithFunctionName():"
-                        + "\ntest6")
+        assertLog().hasDebugMessage("SimpleLogTest",
+                "testPrintWithFunctionName() -> test1")
+                .hasInfoMessage("SimpleLogTest",
+                        "testPrintWithFunctionName() -> test2")
+                .hasErrorMessage("SimpleLogTest",
+                        "testPrintWithFunctionName() -> test3")
+                .hasVerboseMessage("SimpleLogTest",
+                        "testPrintWithFunctionName() -> test4")
+                .hasWarnMessage("SimpleLogTest",
+                        "testPrintWithFunctionName() -> test5")
+                .hasAssertMessage("SimpleLogTest",
+                        "testPrintWithFunctionName() -> test6")
                 .hasNoMoreMessages();
     }
 
@@ -156,10 +156,12 @@ public class SimpleLogTest {
 
     @Test
     public void testPrintVeryBigLogWithFunctionName() {
-        String finalLongText1 = Resources.LONG_TEXT.substring(0, 4000);
-        String finalLongText2 = Resources.LONG_TEXT.substring(4000);
-        String finalLongText3 = Resources.LONG_TEXT_3999;
-        String finalLongText4 = Resources.LONG_TEXT_4000;
+        String finalLongText1 = Resources.LONG_TEXT.substring(0, 3959);
+        String finalLongText2 = Resources.LONG_TEXT.substring(3959);
+        String finalLongText3 = Resources.LONG_TEXT_3999.substring(0, 3959);
+        String finalLongText4 = Resources.LONG_TEXT_3999.substring(3959);
+        String finalLongText5 = Resources.LONG_TEXT_4000.substring(0, 3959);
+        String finalLongText6 = Resources.LONG_TEXT_4000.substring(3959);
 
         SimpleLog.fd(Resources.LONG_TEXT);
         SimpleLog.fe(Resources.LONG_TEXT_3999);
@@ -167,17 +169,21 @@ public class SimpleLogTest {
         SimpleLog.fv(Resources.LONG_TEXT_4000);
         SimpleLog.fw(Resources.LONG_TEXT_4000_N);
 
-        assertLog().hasDebugMessage("SimpleLogTest", "testPrintVeryBigLogWithFunctionName():")
-                .hasDebugMessage("SimpleLogTest", finalLongText1)
+        assertLog().hasDebugMessage("SimpleLogTest",
+                "testPrintVeryBigLogWithFunctionName() -> " + finalLongText1)
                 .hasDebugMessage("SimpleLogTest", finalLongText2)
-                .hasErrorMessage("SimpleLogTest", "testPrintVeryBigLogWithFunctionName():")
-                .hasErrorMessage("SimpleLogTest", finalLongText3)
-                .hasInfoMessage("SimpleLogTest", "testPrintVeryBigLogWithFunctionName():")
-                .hasInfoMessage("SimpleLogTest", finalLongText3)
-                .hasVerboseMessage("SimpleLogTest", "testPrintVeryBigLogWithFunctionName():")
-                .hasVerboseMessage("SimpleLogTest", finalLongText4)
-                .hasWarnMessage("SimpleLogTest", "testPrintVeryBigLogWithFunctionName():")
-                .hasWarnMessage("SimpleLogTest", finalLongText4)
+                .hasErrorMessage("SimpleLogTest",
+                        "testPrintVeryBigLogWithFunctionName() -> " + finalLongText3)
+                .hasErrorMessage("SimpleLogTest", finalLongText4)
+                .hasInfoMessage("SimpleLogTest",
+                        "testPrintVeryBigLogWithFunctionName() -> " + finalLongText3)
+                .hasInfoMessage("SimpleLogTest", finalLongText4)
+                .hasVerboseMessage("SimpleLogTest",
+                        "testPrintVeryBigLogWithFunctionName() -> " + finalLongText5)
+                .hasVerboseMessage("SimpleLogTest", finalLongText6)
+                .hasWarnMessage("SimpleLogTest",
+                        "testPrintVeryBigLogWithFunctionName() -> " + finalLongText5)
+                .hasWarnMessage("SimpleLogTest", finalLongText6)
                 .hasNoMoreMessages();
     }
 
@@ -187,7 +193,7 @@ public class SimpleLogTest {
         String finalTag = "CUSTOMTAG";
         String finalLog1 = "testPrintCustomTag()";
         String finalLog2 = "TestLog";
-        String finalLog3 = "testPrintCustomTag():\nTestLog";
+        String finalLog3 = "testPrintCustomTag() -> TestLog";
 
         SimpleLog.tfd(null);
         SimpleLog.tfd(finalTag);
@@ -262,7 +268,7 @@ public class SimpleLogTest {
     public void testPrintAbstractInnerClasses() {
         final String testTag = "SimpleLogTest";
         final String testLog = "TestLog";
-        final String testLog2 = "onEvent():\nTestLog";
+        final String testLog2 = "onEvent() -> TestLog";
         AbstractInnerClass.TestListener listener = new AbstractInnerClass.TestListener() {
             @Override
             public void onEvent() {

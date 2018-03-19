@@ -18,8 +18,8 @@ SimpleLog.tfe("CustomTAG", "Test error");
 
 ### Gradle:
 ```gradle
-annotationProcessor 'com.don11995.log:simple-log-processor:1.2.4'
-implemetation 'com.don11995.log:simple-log:1.2.4'
+annotationProcessor 'com.don11995.log:simple-log-processor:1.2.5'
+implemetation 'com.don11995.log:simple-log:1.2.5'
 ```
 
 ### ProGuard rules for release build:

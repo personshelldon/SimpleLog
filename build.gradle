@@ -1,5 +1,5 @@
 /*
- * Modified by Vladyslav Lozytskyi on 12.02.18 13:10
+ * Modified by Vladyslav Lozytskyi on 19.03.18 12:31
  * Copyright (c) 2018. All rights reserved.
  */
 
@@ -11,10 +11,9 @@ buildscript {
         'compileSdkVersion': 27,
         'minSdkVersion': 9,
         'targetSdkVersion': 27,
-        'versionCode' : 24,
-        'supportLibrary' : '27.0.1',
-        'buildToolsVersion' : '27.0.1',
-        'versionName' : '1.2.4',
+        'versionCode' : 25,
+        'supportLibrary' : '27.1.0',
+        'versionName' : '1.2.5',
     ]
 
     repositories {
