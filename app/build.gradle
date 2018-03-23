@@ -1,9 +1,10 @@
 /*
- * Modified by Vladyslav Lozytskyi on 19.03.18 12:31
+ * Modified by Vladyslav Lozytskyi on 3/23/18 2:00 PM
  * Copyright (c) 2018. All rights reserved.
  */
 
 apply plugin: 'com.android.application'
+apply from: "$rootProject.projectDir/config/codestyle.gradle"
 
 android {
 

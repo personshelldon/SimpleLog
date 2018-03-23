@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+  ~ Modified by Vladyslav Lozytskyi on 3/23/18 10:40 AM
+  ~ Copyright (c) 2018. All rights reserved.
+  -->
+
+<FindBugsFilter>
+
+    <Match>
+        <Class name="~.*\.R\$.*" />
+    </Match>
+    <Match>
+        <Class name="~.*\.Manifest\$.*" />
+    </Match>
+    <Match>
+        <Class name="~.*\.*Test" />
+        <Not>
+            <Bug code="IJU" />
+        </Not>
+    </Match>
+    <Match>
+        <Bug pattern="DM_DEFAULT_ENCODING" />
+    </Match>
+
+</FindBugsFilter>

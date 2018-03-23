@@ -1,3 +1,9 @@
+## Version 1.2.6
+* Print new line after function name if trying to print `Group` class
+* Updated Bintray plugin
+* Added Checkstyle rules
+* Added `Group` test with function names
+
 ## Version 1.2.5
 * Changed print function name with log. Now function name and log
   split by " -> " not by ":\n"

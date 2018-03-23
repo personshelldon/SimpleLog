@@ -1,0 +1,96 @@
+/*
+ * Modified by Vladyslav Lozytskyi on 3/23/18 2:15 PM
+ * Copyright (c) 2018. All rights reserved.
+ */
+
+apply plugin:'com.android.application'
+apply plugin: 'findbugs'
+apply plugin: 'pmd'
+apply plugin: 'checkstyle'
+
+check.dependsOn 'checkstyle', 'findbugs', 'pmd', 'lint'
+
+task checkstyle(type: Checkstyle, group: 'Verification', description: 'Runs code style checks') {
+    configFile file("${project.rootDir}/config/checkstyle-config.xml")
+    configProperties.checkstyleSuppressionsPath = file("${project.rootDir}/config/checkstyle-suppressions.xml").absolutePath
+
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    reports {
+        xml.enabled = false
+        html.enabled = true
+        xml {
+            destination new File("${project.rootDir}/reports/checkstyle.xml")
+        }
+        html {
+            destination new File("${project.rootDir}/reports/checkstyle.html")
+        }
+    }
+
+    classpath = files()
+}
+
+task findbugs(type: FindBugs) {
+    ignoreFailures = false
+    effort = "max"
+    reportLevel = "high"
+    excludeFilter = new File("${project.rootDir}/config/findbugs.xml")
+    classes = files("${project.rootDir}/app/build/intermediates/classes")
+
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    classpath = files()
+    reports {
+        xml.enabled = false
+        html.enabled = true
+        xml {
+            destination new File("${project.rootDir}/reports/findbugs.xml")
+        }
+        html {
+            destination new File("${project.rootDir}/reports/findbugs.html")
+        }
+    }
+}
+
+task pmd(type: Pmd, description: 'Inspect sourcecode for bugs') {
+    ruleSetFiles = files("${project.rootDir}/config/pmd.xml")
+    ignoreFailures = false
+    ruleSets = []
+
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    reports {
+        xml.enabled = false
+        html.enabled = true
+        xml {
+            destination new File("${project.rootDir}/reports/pmd.xml")
+        }
+        html {
+            destination new File("${project.rootDir}/reports/pmd.html")
+        }
+    }
+}
+
+android {
+
+    lintOptions {
+        warningsAsErrors true
+        abortOnError true
+        xmlReport false
+        xmlOutput file("${project.rootDir}/reports/lint-report.xml")
+        htmlReport true
+        htmlOutput file("${project.rootDir}/reports/lint.html")
+        lintConfig file("${project.rootDir}/config/lint.xml")
+
+        ignore "AllowBackup"
+        ignore "GoogleAppIndexingWarning"
+        ignore "HardcodedText"
+    }
+
+}

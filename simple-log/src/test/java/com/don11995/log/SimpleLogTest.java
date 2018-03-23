@@ -1,5 +1,5 @@
 /*
- * Modified by Vladyslav Lozytskyi on 19.03.18 12:23
+ * Modified by Vladyslav Lozytskyi on 3/23/18 1:49 PM
  * Copyright (c) 2018. All rights reserved.
  */
 
@@ -92,6 +92,33 @@ public class SimpleLogTest {
         SimpleLog.w(group);
         SimpleLog.v(group);
         SimpleLog.wtf(group);
+        assertLog().hasDebugMessage("SimpleLogTest", finalResult)
+                .hasErrorMessage("SimpleLogTest", finalResult)
+                .hasInfoMessage("SimpleLogTest", finalResult)
+                .hasWarnMessage("SimpleLogTest", finalResult)
+                .hasVerboseMessage("SimpleLogTest", finalResult)
+                .hasAssertMessage("SimpleLogTest", finalResult)
+                .hasNoMoreMessages();
+    }
+
+    @Test
+    public void testPrintGroupWithFunctionName() {
+        String finalResult = "testPrintGroupWithFunctionName() -> \n"
+                + "--------TITLE--------\n"
+                + "Line 1: arg1\n"
+                + "Line 2: arg2\n"
+                + "---------------------";
+        String arg1 = "arg1";
+        String arg2 = "arg2";
+        Group group = new Group("TITLE")
+                .append("Line 1: %s", arg1)
+                .append("Line 2: %s", arg2);
+        SimpleLog.fd(group);
+        SimpleLog.fe(group);
+        SimpleLog.fi(group);
+        SimpleLog.fw(group);
+        SimpleLog.fv(group);
+        SimpleLog.fwtf(group);
         assertLog().hasDebugMessage("SimpleLogTest", finalResult)
                 .hasErrorMessage("SimpleLogTest", finalResult)
                 .hasInfoMessage("SimpleLogTest", finalResult)

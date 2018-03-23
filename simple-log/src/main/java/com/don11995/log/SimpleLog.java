@@ -1,5 +1,5 @@
 /*
- * Modified by Vladyslav Lozytskyi on 19.03.18 12:01
+ * Modified by Vladyslav Lozytskyi on 3/23/18 2:24 PM
  * Copyright (c) 2018. All rights reserved.
  */
 
@@ -28,7 +28,7 @@ import java.util.Set;
  */
 
 @SuppressWarnings("all")
-public class SimpleLog {
+public final class SimpleLog {
 
     /**
      * Priority constant for the println method;
@@ -101,7 +101,8 @@ public class SimpleLog {
         enableAllLogs();
     }
 
-    private SimpleLog() { }
+    private SimpleLog() {
+    }
 
     /**
      * Disable all logs
@@ -176,7 +177,7 @@ public class SimpleLog {
         String format = group.getText();
         String groupName = group.getGroupName();
         if (groupName == null) groupName = "";
-        char buffer[] = new char[sDividerBlockSize];
+        char[] buffer = new char[sDividerBlockSize];
         Arrays.fill(buffer,
                 sDividerChar);
         String divider = new String(buffer);
@@ -210,18 +211,22 @@ public class SimpleLog {
         }
     }
 
+    private static boolean isGroupObject(@Nullable Object object) {
+        return object instanceof Group;
+    }
+
     /**
      * Print current method name
      */
     public static void fd() {
-        printLog(LOG_LEVEL_DEBUG, null, true, null);
+        printLog(LOG_LEVEL_DEBUG, null, true, null, false);
     }
 
     /**
      * Print current method name
      */
     public static void fe() {
-        printLog(LOG_LEVEL_ERROR, null, true, null);
+        printLog(LOG_LEVEL_ERROR, null, true, null, false);
     }
 
 
@@ -229,28 +234,28 @@ public class SimpleLog {
      * Print current method name
      */
     public static void fi() {
-        printLog(LOG_LEVEL_INFO, null, true, null);
+        printLog(LOG_LEVEL_INFO, null, true, null, false);
     }
 
     /**
      * Print current method name
      */
     public static void fv() {
-        printLog(LOG_LEVEL_VERBOSE, null, true, null);
+        printLog(LOG_LEVEL_VERBOSE, null, true, null, false);
     }
 
     /**
      * Print current method name
      */
     public static void fw() {
-        printLog(LOG_LEVEL_WARNING, null, true, null);
+        printLog(LOG_LEVEL_WARNING, null, true, null, false);
     }
 
     /**
      * Print current method name
      */
     public static void fwtf() {
-        printLog(LOG_LEVEL_ASSERT, null, true, null);
+        printLog(LOG_LEVEL_ASSERT, null, true, null, false);
     }
 
     /**
@@ -259,7 +264,7 @@ public class SimpleLog {
      * @param tag tag to use
      */
     public static void tfd(String tag) {
-        printLog(LOG_LEVEL_DEBUG, null, true, tag);
+        printLog(LOG_LEVEL_DEBUG, null, true, tag, false);
     }
 
     /**
@@ -268,7 +273,7 @@ public class SimpleLog {
      * @param tag tag to use
      */
     public static void tfe(String tag) {
-        printLog(LOG_LEVEL_ERROR, null, true, tag);
+        printLog(LOG_LEVEL_ERROR, null, true, tag, false);
     }
 
     /**
@@ -277,7 +282,7 @@ public class SimpleLog {
      * @param tag tag to use
      */
     public static void tfi(String tag) {
-        printLog(LOG_LEVEL_INFO, null, true, tag);
+        printLog(LOG_LEVEL_INFO, null, true, tag, false);
     }
 
     /**
@@ -286,7 +291,7 @@ public class SimpleLog {
      * @param tag tag to use
      */
     public static void tfv(String tag) {
-        printLog(LOG_LEVEL_VERBOSE, null, true, tag);
+        printLog(LOG_LEVEL_VERBOSE, null, true, tag, false);
     }
 
     /**
@@ -295,7 +300,7 @@ public class SimpleLog {
      * @param tag tag to use
      */
     public static void tfw(String tag) {
-        printLog(LOG_LEVEL_WARNING, null, true, tag);
+        printLog(LOG_LEVEL_WARNING, null, true, tag, false);
     }
 
     /**
@@ -304,7 +309,7 @@ public class SimpleLog {
      * @param tag tag to use
      */
     public static void tfwtf(String tag) {
-        printLog(LOG_LEVEL_ASSERT, null, true, tag);
+        printLog(LOG_LEVEL_ASSERT, null, true, tag, false);
     }
 
     /**
@@ -313,7 +318,9 @@ public class SimpleLog {
      * @param object object to print into logcat
      */
     public static void d(Object object) {
-        printLog(LOG_LEVEL_DEBUG, getMessageFromObject(object), false, getTagFromObject(object));
+        boolean isGroup = isGroupObject(object);
+        printLog(LOG_LEVEL_DEBUG, getMessageFromObject(object), false, getTagFromObject(object),
+                isGroup);
     }
 
     /**
@@ -322,7 +329,9 @@ public class SimpleLog {
      * @param object object to print into logcat
      */
     public static void e(Object object) {
-        printLog(LOG_LEVEL_ERROR, getMessageFromObject(object), false, getTagFromObject(object));
+        boolean isGroup = isGroupObject(object);
+        printLog(LOG_LEVEL_ERROR, getMessageFromObject(object), false, getTagFromObject(object),
+                isGroup);
     }
 
     /**
@@ -331,7 +340,9 @@ public class SimpleLog {
      * @param object object to print into logcat
      */
     public static void i(Object object) {
-        printLog(LOG_LEVEL_INFO, getMessageFromObject(object), false, getTagFromObject(object));
+        boolean isGroup = isGroupObject(object);
+        printLog(LOG_LEVEL_INFO, getMessageFromObject(object), false, getTagFromObject(object),
+                isGroup);
     }
 
     /**
@@ -340,7 +351,9 @@ public class SimpleLog {
      * @param object object to print into logcat
      */
     public static void v(Object object) {
-        printLog(LOG_LEVEL_VERBOSE, getMessageFromObject(object), false, getTagFromObject(object));
+        boolean isGroup = isGroupObject(object);
+        printLog(LOG_LEVEL_VERBOSE, getMessageFromObject(object), false, getTagFromObject(object),
+                isGroup);
     }
 
     /**
@@ -349,7 +362,9 @@ public class SimpleLog {
      * @param object object to print into logcat
      */
     public static void w(Object object) {
-        printLog(LOG_LEVEL_WARNING, getMessageFromObject(object), false, getTagFromObject(object));
+        boolean isGroup = isGroupObject(object);
+        printLog(LOG_LEVEL_WARNING, getMessageFromObject(object), false, getTagFromObject(object),
+                isGroup);
     }
 
     /**
@@ -358,7 +373,9 @@ public class SimpleLog {
      * @param object object to print into logcat
      */
     public static void wtf(Object object) {
-        printLog(LOG_LEVEL_ASSERT, getMessageFromObject(object), false, getTagFromObject(object));
+        boolean isGroup = isGroupObject(object);
+        printLog(LOG_LEVEL_ASSERT, getMessageFromObject(object), false, getTagFromObject(object),
+                isGroup);
     }
 
     /**
@@ -369,7 +386,9 @@ public class SimpleLog {
      * @param object object to print into logcat
      */
     public static void td(String tag, Object object) {
-        printLog(LOG_LEVEL_DEBUG, getMessageFromObject(object), false, tag);
+        boolean isGroup = isGroupObject(object);
+        printLog(LOG_LEVEL_DEBUG, getMessageFromObject(object), false, tag,
+                isGroup);
     }
 
     /**
@@ -380,7 +399,9 @@ public class SimpleLog {
      * @param object object to print into logcat
      */
     public static void te(String tag, Object object) {
-        printLog(LOG_LEVEL_ERROR, getMessageFromObject(object), false, tag);
+        boolean isGroup = isGroupObject(object);
+        printLog(LOG_LEVEL_ERROR, getMessageFromObject(object), false, tag,
+                isGroup);
     }
 
     /**
@@ -391,7 +412,9 @@ public class SimpleLog {
      * @param object object to print into logcat
      */
     public static void ti(String tag, Object object) {
-        printLog(LOG_LEVEL_INFO, getMessageFromObject(object), false, tag);
+        boolean isGroup = isGroupObject(object);
+        printLog(LOG_LEVEL_INFO, getMessageFromObject(object), false, tag,
+                isGroup);
     }
 
     /**
@@ -402,7 +425,9 @@ public class SimpleLog {
      * @param object object to print into logcat
      */
     public static void tv(String tag, Object object) {
-        printLog(LOG_LEVEL_VERBOSE, getMessageFromObject(object), false, tag);
+        boolean isGroup = isGroupObject(object);
+        printLog(LOG_LEVEL_VERBOSE, getMessageFromObject(object), false, tag,
+                isGroup);
     }
 
     /**
@@ -413,7 +438,9 @@ public class SimpleLog {
      * @param object object to print into logcat
      */
     public static void tw(String tag, Object object) {
-        printLog(LOG_LEVEL_WARNING, getMessageFromObject(object), false, tag);
+        boolean isGroup = isGroupObject(object);
+        printLog(LOG_LEVEL_WARNING, getMessageFromObject(object), false, tag,
+                isGroup);
     }
 
     /**
@@ -424,7 +451,9 @@ public class SimpleLog {
      * @param object object to print into logcat
      */
     public static void twtf(String tag, Object object) {
-        printLog(LOG_LEVEL_ASSERT, getMessageFromObject(object), false, tag);
+        boolean isGroup = isGroupObject(object);
+        printLog(LOG_LEVEL_ASSERT, getMessageFromObject(object), false, tag,
+                isGroup);
     }
 
     /**
@@ -434,7 +463,9 @@ public class SimpleLog {
      * @param object object to print into logcat
      */
     public static void fd(Object object) {
-        printLog(LOG_LEVEL_DEBUG, getMessageFromObject(object), true, getTagFromObject(object));
+        boolean isGroup = isGroupObject(object);
+        printLog(LOG_LEVEL_DEBUG, getMessageFromObject(object), true, getTagFromObject(object),
+                isGroup);
     }
 
     /**
@@ -444,7 +475,9 @@ public class SimpleLog {
      * @param object object to print into logcat
      */
     public static void fe(Object object) {
-        printLog(LOG_LEVEL_ERROR, getMessageFromObject(object), true, getTagFromObject(object));
+        boolean isGroup = isGroupObject(object);
+        printLog(LOG_LEVEL_ERROR, getMessageFromObject(object), true, getTagFromObject(object),
+                isGroup);
     }
 
     /**
@@ -454,7 +487,9 @@ public class SimpleLog {
      * @param object object to print into logcat
      */
     public static void fi(Object object) {
-        printLog(LOG_LEVEL_INFO, getMessageFromObject(object), true, getTagFromObject(object));
+        boolean isGroup = isGroupObject(object);
+        printLog(LOG_LEVEL_INFO, getMessageFromObject(object), true, getTagFromObject(object),
+                isGroup);
     }
 
     /**
@@ -464,7 +499,9 @@ public class SimpleLog {
      * @param object object to print into logcat
      */
     public static void fv(Object object) {
-        printLog(LOG_LEVEL_VERBOSE, getMessageFromObject(object), true, getTagFromObject(object));
+        boolean isGroup = isGroupObject(object);
+        printLog(LOG_LEVEL_VERBOSE, getMessageFromObject(object), true, getTagFromObject(object),
+                isGroup);
     }
 
     /**
@@ -474,7 +511,9 @@ public class SimpleLog {
      * @param object object to print into logcat
      */
     public static void fw(Object object) {
-        printLog(LOG_LEVEL_WARNING, getMessageFromObject(object), true, getTagFromObject(object));
+        boolean isGroup = isGroupObject(object);
+        printLog(LOG_LEVEL_WARNING, getMessageFromObject(object), true, getTagFromObject(object),
+                isGroup);
     }
 
     /**
@@ -484,7 +523,9 @@ public class SimpleLog {
      * @param object object to print into logcat
      */
     public static void fwtf(Object object) {
-        printLog(LOG_LEVEL_ASSERT, getMessageFromObject(object), true, getTagFromObject(object));
+        boolean isGroup = isGroupObject(object);
+        printLog(LOG_LEVEL_ASSERT, getMessageFromObject(object), true, getTagFromObject(object),
+                isGroup);
     }
 
     /**
@@ -496,7 +537,9 @@ public class SimpleLog {
      * @param object object to print into logcat
      */
     public static void tfd(String tag, Object object) {
-        printLog(LOG_LEVEL_DEBUG, getMessageFromObject(object), true, tag);
+        boolean isGroup = isGroupObject(object);
+        printLog(LOG_LEVEL_DEBUG, getMessageFromObject(object), true, tag,
+                isGroup);
     }
 
     /**
@@ -508,7 +551,9 @@ public class SimpleLog {
      * @param object object to print into logcat
      */
     public static void tfe(String tag, Object object) {
-        printLog(LOG_LEVEL_ERROR, getMessageFromObject(object), true, tag);
+        boolean isGroup = isGroupObject(object);
+        printLog(LOG_LEVEL_ERROR, getMessageFromObject(object), true, tag,
+                isGroup);
     }
 
     /**
@@ -520,7 +565,9 @@ public class SimpleLog {
      * @param object object to print into logcat
      */
     public static void tfi(String tag, Object object) {
-        printLog(LOG_LEVEL_INFO, getMessageFromObject(object), true, tag);
+        boolean isGroup = isGroupObject(object);
+        printLog(LOG_LEVEL_INFO, getMessageFromObject(object), true, tag,
+                isGroup);
     }
 
     /**
@@ -532,7 +579,9 @@ public class SimpleLog {
      * @param object object to print into logcat
      */
     public static void tfv(String tag, Object object) {
-        printLog(LOG_LEVEL_VERBOSE, getMessageFromObject(object), true, tag);
+        boolean isGroup = isGroupObject(object);
+        printLog(LOG_LEVEL_VERBOSE, getMessageFromObject(object), true, tag,
+                isGroup);
     }
 
     /**
@@ -544,7 +593,9 @@ public class SimpleLog {
      * @param object object to print into logcat
      */
     public static void tfw(String tag, Object object) {
-        printLog(LOG_LEVEL_WARNING, getMessageFromObject(object), true, tag);
+        boolean isGroup = isGroupObject(object);
+        printLog(LOG_LEVEL_WARNING, getMessageFromObject(object), true, tag,
+                isGroup);
     }
 
     /**
@@ -556,7 +607,9 @@ public class SimpleLog {
      * @param object object to print into logcat
      */
     public static void tfwtf(String tag, Object object) {
-        printLog(LOG_LEVEL_ASSERT, getMessageFromObject(object), true, tag);
+        boolean isGroup = isGroupObject(object);
+        printLog(LOG_LEVEL_ASSERT, getMessageFromObject(object), true, tag,
+                isGroup);
     }
 
     /**
@@ -566,7 +619,7 @@ public class SimpleLog {
      * @param args   args to use with {@link String#format}
      */
     public static void d(String format, Object... args) {
-        printLog(LOG_LEVEL_DEBUG, formatText(format, args), false, null);
+        printLog(LOG_LEVEL_DEBUG, formatText(format, args), false, null, false);
     }
 
     /**
@@ -576,7 +629,7 @@ public class SimpleLog {
      * @param args   args to use with {@link String#format}
      */
     public static void e(String format, Object... args) {
-        printLog(LOG_LEVEL_ERROR, formatText(format, args), false, null);
+        printLog(LOG_LEVEL_ERROR, formatText(format, args), false, null, false);
     }
 
     /**
@@ -586,7 +639,7 @@ public class SimpleLog {
      * @param args   args to use with {@link String#format}
      */
     public static void i(String format, Object... args) {
-        printLog(LOG_LEVEL_INFO, formatText(format, args), false, null);
+        printLog(LOG_LEVEL_INFO, formatText(format, args), false, null, false);
     }
 
     /**
@@ -596,7 +649,7 @@ public class SimpleLog {
      * @param args   args to use with {@link String#format}
      */
     public static void v(String format, Object... args) {
-        printLog(LOG_LEVEL_VERBOSE, formatText(format, args), false, null);
+        printLog(LOG_LEVEL_VERBOSE, formatText(format, args), false, null, false);
     }
 
     /**
@@ -606,7 +659,7 @@ public class SimpleLog {
      * @param args   args to use with {@link String#format}
      */
     public static void w(String format, Object... args) {
-        printLog(LOG_LEVEL_WARNING, formatText(format, args), false, null);
+        printLog(LOG_LEVEL_WARNING, formatText(format, args), false, null, false);
     }
 
     /**
@@ -616,7 +669,7 @@ public class SimpleLog {
      * @param args   args to use with {@link String#format}
      */
     public static void wtf(String format, Object... args) {
-        printLog(LOG_LEVEL_ASSERT, formatText(format, args), false, null);
+        printLog(LOG_LEVEL_ASSERT, formatText(format, args), false, null, false);
     }
 
     /**
@@ -627,7 +680,7 @@ public class SimpleLog {
      * @param args   args to use with {@link String#format}
      */
     public static void fd(String format, Object... args) {
-        printLog(LOG_LEVEL_DEBUG, formatText(format, args), true, null);
+        printLog(LOG_LEVEL_DEBUG, formatText(format, args), true, null, false);
     }
 
     /**
@@ -638,7 +691,7 @@ public class SimpleLog {
      * @param args   args to use with {@link String#format}
      */
     public static void fe(String format, Object... args) {
-        printLog(LOG_LEVEL_ERROR, formatText(format, args), true, null);
+        printLog(LOG_LEVEL_ERROR, formatText(format, args), true, null, false);
     }
 
     /**
@@ -649,7 +702,7 @@ public class SimpleLog {
      * @param args   args to use with {@link String#format}
      */
     public static void fi(String format, Object... args) {
-        printLog(LOG_LEVEL_INFO, formatText(format, args), true, null);
+        printLog(LOG_LEVEL_INFO, formatText(format, args), true, null, false);
     }
 
     /**
@@ -660,7 +713,7 @@ public class SimpleLog {
      * @param args   args to use with {@link String#format}
      */
     public static void fv(String format, Object... args) {
-        printLog(LOG_LEVEL_VERBOSE, formatText(format, args), true, null);
+        printLog(LOG_LEVEL_VERBOSE, formatText(format, args), true, null, false);
     }
 
     /**
@@ -671,7 +724,7 @@ public class SimpleLog {
      * @param args   args to use with {@link String#format}
      */
     public static void fw(String format, Object... args) {
-        printLog(LOG_LEVEL_WARNING, formatText(format, args), true, null);
+        printLog(LOG_LEVEL_WARNING, formatText(format, args), true, null, false);
     }
 
     /**
@@ -682,7 +735,7 @@ public class SimpleLog {
      * @param args   args to use with {@link String#format}
      */
     public static void fwtf(String format, Object... args) {
-        printLog(LOG_LEVEL_ASSERT, formatText(format, args), true, null);
+        printLog(LOG_LEVEL_ASSERT, formatText(format, args), true, null, false);
     }
 
     /**
@@ -691,7 +744,7 @@ public class SimpleLog {
      * @param throwable throwable to ptint
      */
     public static void e(Throwable throwable) {
-        printLog(LOG_LEVEL_ERROR, getMessageFromObject(throwable), false, null);
+        printLog(LOG_LEVEL_ERROR, getMessageFromObject(throwable), false, null, false);
     }
 
     /**
@@ -701,7 +754,7 @@ public class SimpleLog {
      * @param throwable throwable to ptint
      */
     public static void te(String tag, Throwable throwable) {
-        printLog(LOG_LEVEL_ERROR, getMessageFromObject(throwable), false, tag);
+        printLog(LOG_LEVEL_ERROR, getMessageFromObject(throwable), false, tag, false);
     }
 
     /**
@@ -710,7 +763,7 @@ public class SimpleLog {
      * @param throwable throwable to ptint
      */
     public static void fe(Throwable throwable) {
-        printLog(LOG_LEVEL_ERROR, getMessageFromObject(throwable), true, null);
+        printLog(LOG_LEVEL_ERROR, getMessageFromObject(throwable), true, null, false);
     }
 
     /**
@@ -721,14 +774,17 @@ public class SimpleLog {
      * @param throwable throwable to ptint
      */
     public static void tfe(String tag, Throwable throwable) {
-        printLog(LOG_LEVEL_ERROR, getMessageFromObject(throwable), true, tag);
+        printLog(LOG_LEVEL_ERROR, getMessageFromObject(throwable), true, tag, false);
     }
 
     private static void printLog(@LogLevel int logLevel,
-                                 @Nullable String message,
+                                 @Nullable String inMessage,
                                  boolean printMethodName,
-                                 @Nullable String tag) {
+                                 @Nullable String inTag,
+                                 boolean isGroup) {
         if (!mLogLevels.contains(logLevel)) return;
+        String message = inMessage;
+        String tag = inTag;
         if (message == null) message = "";
         StackTraceElement element = new Throwable().getStackTrace()[CALL_STACK_INDEX];
         if (TextUtils.isEmpty(tag)) {
@@ -753,7 +809,9 @@ public class SimpleLog {
             if (message.isEmpty()) {
                 message = method + "()";
             } else {
-                message = method + "() -> " + message;
+                message = method + "() -> "
+                        + (isGroup ? "\n" : "")
+                        + message;
             }
         }
         if (message.isEmpty()) return;
@@ -788,6 +846,8 @@ public class SimpleLog {
                     break;
                 case LOG_LEVEL_ASSERT:
                     android.util.Log.wtf(tag, s);
+                    break;
+                default:
                     break;
             }
         }

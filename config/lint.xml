@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+  ~ Modified by Vladyslav Lozytskyi on 3/23/18 10:40 AM
+  ~ Copyright (c) 2018. All rights reserved.
+  -->
+
+<lint>
+    <issue id="DefaultLocale" severity="ignore" />
+    <issue id="InvalidPackage" severity="ignore" />
+    <issue id="Overdraw" severity="ignore" />
+    <issue id="TrustAllX509TrustManager" severity="ignore" />
+    <issue id="VectorPath" severity="ignore" />
+</lint>

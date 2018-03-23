@@ -1,5 +1,5 @@
 /*
- * Modified by Vladyslav Lozytskyi on 12.02.18 13:08
+ * Modified by Vladyslav Lozytskyi on 3/23/18 2:13 PM
  * Copyright (c) 2018. All rights reserved.
  */
 
@@ -13,9 +13,21 @@ import com.don11995.log.MapFieldInner;
 
 public interface LogSettings {
 
+    /**
+     * Mapping key names in {@link KeyEvent} with their values
+     * To get key name call ValueMapper.keyCode(int code)
+     *
+     * @param keyEvent value ignored, only class matters
+     */
     @MapClassInner(methods = "keyCode", prefixes = "KEYCODE")
     void mapKeyCodes(KeyEvent keyEvent);
 
+    /**
+     * Mapping audio focus in {@link AudioManager} with their values
+     * To get audio focus name call ValueMapper.audioFocus(int value)
+     *
+     * @param audioManager value ignored, only class matters
+     */
     @MapFieldInner(method = "audioFocus", names = {
             "AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE",
             "AUDIOFOCUS_GAIN_TRANSIENT",
