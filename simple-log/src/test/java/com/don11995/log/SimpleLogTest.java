@@ -1,18 +1,22 @@
 /*
- * Modified by Vladyslav Lozytskyi on 3/23/18 1:49 PM
+ * Modified by Vladyslav Lozytskyi on 4/10/18 12:57 AM
  * Copyright (c) 2018. All rights reserved.
  */
 
 package com.don11995.log;
 
 import android.os.Build;
+import android.support.annotation.Nullable;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import java.io.IOException;
+
 import static com.don11995.log.LogAssert.assertLog;
+import static com.google.common.truth.Truth.assertThat;
 
 @Config(sdk = Build.VERSION_CODES.JELLY_BEAN)
 @RunWith(RobolectricTestRunner.class)
@@ -291,22 +295,136 @@ public class SimpleLogTest {
                 .hasNoMoreMessages();
     }
 
+    @SuppressWarnings("Convert2Lambda")
     @Test
     public void testPrintAbstractInnerClasses() {
         final String testTag = "SimpleLogTest";
         final String testLog = "TestLog";
         final String testLog2 = "onEvent() -> TestLog";
-        AbstractInnerClass.TestListener listener = new AbstractInnerClass.TestListener() {
+        final String testLog3 = "testPrintAbstractInnerClasses() -> TestLog";
+        final String testLog4 = "null() -> TestLog";
+        AbstractInnerClass.TestListener listener = () -> {
+            SimpleLog.d(testLog);
+            SimpleLog.fd(testLog);
+
+        };
+        AbstractInnerClass.TestListener listener2 = new AbstractInnerClass.TestListener() {
             @Override
             public void onEvent() {
                 SimpleLog.d(testLog);
                 SimpleLog.fd(testLog);
-                assertLog().hasDebugMessage(testTag, testLog)
-                        .hasDebugMessage(testTag, testLog2)
-                        .hasNoMoreMessages();
             }
         };
+
+        AbstractInnerClass.TestListener listener3 = new AbstractInnerClass.TestListener() {
+            @Override
+            public void onEvent() {
+                AbstractInnerClass.TestListener listener4 = new AbstractInnerClass.TestListener() {
+                    @Override
+                    public void onEvent() {
+                        SimpleLog.d(testLog);
+                        SimpleLog.fd(testLog);
+                    }
+                };
+                listener4.onEvent();
+            }
+        };
+
+        AbstractInnerClass.TestListener listener5 = () -> {
+            AbstractInnerClass.TestListener listener6 = new AbstractInnerClass.TestListener() {
+                @Override
+                public void onEvent() {
+                    SimpleLog.d(testLog);
+                    SimpleLog.fd(testLog);
+                }
+            };
+            listener6.onEvent();
+        };
+
+        AbstractInnerClass.TestListener listener7 = new AbstractInnerClass.TestListener() {
+            @Override
+            public void onEvent() {
+                AbstractInnerClass.TestListener listener8 = () -> {
+                    SimpleLog.d(testLog);
+                    SimpleLog.fd(testLog);
+                };
+                listener8.onEvent();
+            }
+        };
+
+        AbstractInnerClass.TestListener listener9 = () -> {
+            AbstractInnerClass.TestListener listener10 = () -> {
+                SimpleLog.d(testLog);
+                SimpleLog.fd(testLog);
+            };
+            listener10.onEvent();
+        };
+
         listener.onEvent();
+        listener2.onEvent();
+        listener3.onEvent();
+        listener5.onEvent();
+        listener7.onEvent();
+        listener9.onEvent();
+
+        assertLog()
+                .hasDebugMessage(testTag, testLog)
+                .hasDebugMessage(testTag, testLog3)
+                .hasDebugMessage(testTag, testLog)
+                .hasDebugMessage(testTag, testLog2)
+                .hasDebugMessage(testTag, testLog)
+                .hasDebugMessage(testTag, testLog2)
+                .hasDebugMessage(testTag, testLog)
+                .hasDebugMessage(testTag, testLog2)
+                .hasDebugMessage(testTag, testLog)
+                .hasDebugMessage(testTag, testLog2)
+                .hasDebugMessage(testTag, testLog)
+                .hasDebugMessage(testTag, testLog4)
+                .hasNoMoreMessages();
     }
 
+    @Test
+    public void testLogProcessor() {
+        LogProcessor logProcessor = new LogProcessor() {
+            @Override
+            public void processLog(String tag, String message, int priority, @Nullable Throwable e) {
+                if (priority == SimpleLog.LOG_LEVEL_ERROR) return;
+                SimpleLog.e("Log processor message");
+            }
+        };
+        LogProcessor logProcessor2 = new LogProcessor() {
+            @Override
+            public void processLog(String tag, String message, int priority, @Nullable Throwable e) {
+                assertThat(tag).isEqualTo("Test");
+                assertThat(message).startsWith("java.io.IOException");
+                assertThat(priority).isEqualTo(SimpleLog.LOG_LEVEL_WARNING);
+                assertThat(e).isNotNull();
+            }
+        };
+        SimpleLog.addLogProcessor(logProcessor);
+        SimpleLog.d("Test1");
+        SimpleLog.removeLogProcessor(logProcessor);
+        SimpleLog.d("Test2");
+
+        SimpleLog.addLogProcessor(logProcessor2);
+        SimpleLog.tw("Test", new IOException("Test error"));
+        SimpleLog.removeLogProcessor(logProcessor2);
+
+        assertLog()
+                .hasDebugMessage(getClass().getSimpleName(), "Test1")
+                .hasErrorMessage(getClass().getSimpleName(), "Log processor message")
+                .hasDebugMessage(getClass().getSimpleName(), "Test2")
+                .hasWarnMessageStartsWith("Test", "java.io.IOException")
+                .hasNoMoreMessages();
+
+    }
+
+    @Test
+    public void testPrintExceptions() {
+        SimpleLog.d(new IOException("Test"));
+        SimpleLog.e(new IOException("Test2"));
+        assertLog().hasDebugMessageStartsWith(getClass().getSimpleName(), "java.io.IOException: Test")
+                .hasErrorMessageStartsWith(getClass().getSimpleName(), "java.io.IOException: Test2")
+                .hasNoMoreMessages();
+    }
 }

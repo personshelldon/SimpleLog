@@ -1,5 +1,5 @@
 /*
- * Modified by Vladyslav Lozytskyi on 3/23/18 2:24 PM
+ * Modified by Vladyslav Lozytskyi on 4/10/18 12:57 AM
  * Copyright (c) 2018. All rights reserved.
  */
 
@@ -8,6 +8,7 @@ package com.don11995.log;
 import android.os.Build;
 import android.support.annotation.IntDef;
 import android.support.annotation.IntRange;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
@@ -18,6 +19,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -84,7 +86,7 @@ public final class SimpleLog {
     /**
      * Array that contains enabled log levels
      */
-    private static final Set<Integer> mLogLevels;
+    private static final Set<Integer> sLogLevels;
 
     /**
      * Divider char to use with {@link Group}
@@ -96,8 +98,11 @@ public final class SimpleLog {
      */
     private static int sDividerBlockSize = 8;
 
+    private static List<LogProcessor> sLogProcessorList;
+
     static {
-        mLogLevels = new HashSet<>();
+        sLogLevels = new HashSet<>();
+        sLogProcessorList = new ArrayList<>();
         enableAllLogs();
     }
 
@@ -108,19 +113,19 @@ public final class SimpleLog {
      * Disable all logs
      */
     public static void disableAllLogs() {
-        mLogLevels.clear();
+        sLogLevels.clear();
     }
 
     /**
      * Enable all logs
      */
     public static void enableAllLogs() {
-        mLogLevels.add(LOG_LEVEL_ERROR);
-        mLogLevels.add(LOG_LEVEL_DEBUG);
-        mLogLevels.add(LOG_LEVEL_WARNING);
-        mLogLevels.add(LOG_LEVEL_INFO);
-        mLogLevels.add(LOG_LEVEL_VERBOSE);
-        mLogLevels.add(LOG_LEVEL_ASSERT);
+        sLogLevels.add(LOG_LEVEL_ERROR);
+        sLogLevels.add(LOG_LEVEL_DEBUG);
+        sLogLevels.add(LOG_LEVEL_WARNING);
+        sLogLevels.add(LOG_LEVEL_INFO);
+        sLogLevels.add(LOG_LEVEL_VERBOSE);
+        sLogLevels.add(LOG_LEVEL_ASSERT);
     }
 
     /**
@@ -131,9 +136,9 @@ public final class SimpleLog {
      */
     public static void setLogLevelEnabled(@LogLevel int logLevel, boolean enabled) {
         if (enabled) {
-            mLogLevels.add(logLevel);
+            sLogLevels.add(logLevel);
         } else {
-            mLogLevels.remove(logLevel);
+            sLogLevels.remove(logLevel);
         }
     }
 
@@ -144,7 +149,7 @@ public final class SimpleLog {
      * @return true, if logLevel enabled
      */
     public static boolean isLogLevelEnabled(@LogLevel int logLevel) {
-        return mLogLevels.contains(logLevel);
+        return sLogLevels.contains(logLevel);
     }
 
     /**
@@ -219,43 +224,42 @@ public final class SimpleLog {
      * Print current method name
      */
     public static void fd() {
-        printLog(LOG_LEVEL_DEBUG, null, true, null, false);
+        printLog(LOG_LEVEL_DEBUG, null, true, null, null, false);
     }
 
     /**
      * Print current method name
      */
     public static void fe() {
-        printLog(LOG_LEVEL_ERROR, null, true, null, false);
+        printLog(LOG_LEVEL_ERROR, null, true, null, null, false);
     }
-
 
     /**
      * Print current method name
      */
     public static void fi() {
-        printLog(LOG_LEVEL_INFO, null, true, null, false);
+        printLog(LOG_LEVEL_INFO, null, true, null, null, false);
     }
 
     /**
      * Print current method name
      */
     public static void fv() {
-        printLog(LOG_LEVEL_VERBOSE, null, true, null, false);
+        printLog(LOG_LEVEL_VERBOSE, null, true, null, null, false);
     }
 
     /**
      * Print current method name
      */
     public static void fw() {
-        printLog(LOG_LEVEL_WARNING, null, true, null, false);
+        printLog(LOG_LEVEL_WARNING, null, true, null, null, false);
     }
 
     /**
      * Print current method name
      */
     public static void fwtf() {
-        printLog(LOG_LEVEL_ASSERT, null, true, null, false);
+        printLog(LOG_LEVEL_ASSERT, null, true, null, null, false);
     }
 
     /**
@@ -264,7 +268,7 @@ public final class SimpleLog {
      * @param tag tag to use
      */
     public static void tfd(String tag) {
-        printLog(LOG_LEVEL_DEBUG, null, true, tag, false);
+        printLog(LOG_LEVEL_DEBUG, null, true, tag, null, false);
     }
 
     /**
@@ -273,7 +277,7 @@ public final class SimpleLog {
      * @param tag tag to use
      */
     public static void tfe(String tag) {
-        printLog(LOG_LEVEL_ERROR, null, true, tag, false);
+        printLog(LOG_LEVEL_ERROR, null, true, tag, null, false);
     }
 
     /**
@@ -282,7 +286,7 @@ public final class SimpleLog {
      * @param tag tag to use
      */
     public static void tfi(String tag) {
-        printLog(LOG_LEVEL_INFO, null, true, tag, false);
+        printLog(LOG_LEVEL_INFO, null, true, tag, null, false);
     }
 
     /**
@@ -291,7 +295,7 @@ public final class SimpleLog {
      * @param tag tag to use
      */
     public static void tfv(String tag) {
-        printLog(LOG_LEVEL_VERBOSE, null, true, tag, false);
+        printLog(LOG_LEVEL_VERBOSE, null, true, tag, null, false);
     }
 
     /**
@@ -300,7 +304,7 @@ public final class SimpleLog {
      * @param tag tag to use
      */
     public static void tfw(String tag) {
-        printLog(LOG_LEVEL_WARNING, null, true, tag, false);
+        printLog(LOG_LEVEL_WARNING, null, true, tag, null, false);
     }
 
     /**
@@ -309,7 +313,7 @@ public final class SimpleLog {
      * @param tag tag to use
      */
     public static void tfwtf(String tag) {
-        printLog(LOG_LEVEL_ASSERT, null, true, tag, false);
+        printLog(LOG_LEVEL_ASSERT, null, true, tag, null, false);
     }
 
     /**
@@ -320,6 +324,7 @@ public final class SimpleLog {
     public static void d(Object object) {
         boolean isGroup = isGroupObject(object);
         printLog(LOG_LEVEL_DEBUG, getMessageFromObject(object), false, getTagFromObject(object),
+                (object instanceof Throwable) ? (Throwable) object : null,
                 isGroup);
     }
 
@@ -331,6 +336,7 @@ public final class SimpleLog {
     public static void e(Object object) {
         boolean isGroup = isGroupObject(object);
         printLog(LOG_LEVEL_ERROR, getMessageFromObject(object), false, getTagFromObject(object),
+                (object instanceof Throwable) ? (Throwable) object : null,
                 isGroup);
     }
 
@@ -342,6 +348,7 @@ public final class SimpleLog {
     public static void i(Object object) {
         boolean isGroup = isGroupObject(object);
         printLog(LOG_LEVEL_INFO, getMessageFromObject(object), false, getTagFromObject(object),
+                (object instanceof Throwable) ? (Throwable) object : null,
                 isGroup);
     }
 
@@ -353,6 +360,7 @@ public final class SimpleLog {
     public static void v(Object object) {
         boolean isGroup = isGroupObject(object);
         printLog(LOG_LEVEL_VERBOSE, getMessageFromObject(object), false, getTagFromObject(object),
+                (object instanceof Throwable) ? (Throwable) object : null,
                 isGroup);
     }
 
@@ -364,6 +372,7 @@ public final class SimpleLog {
     public static void w(Object object) {
         boolean isGroup = isGroupObject(object);
         printLog(LOG_LEVEL_WARNING, getMessageFromObject(object), false, getTagFromObject(object),
+                (object instanceof Throwable) ? (Throwable) object : null,
                 isGroup);
     }
 
@@ -375,6 +384,7 @@ public final class SimpleLog {
     public static void wtf(Object object) {
         boolean isGroup = isGroupObject(object);
         printLog(LOG_LEVEL_ASSERT, getMessageFromObject(object), false, getTagFromObject(object),
+                (object instanceof Throwable) ? (Throwable) object : null,
                 isGroup);
     }
 
@@ -388,6 +398,7 @@ public final class SimpleLog {
     public static void td(String tag, Object object) {
         boolean isGroup = isGroupObject(object);
         printLog(LOG_LEVEL_DEBUG, getMessageFromObject(object), false, tag,
+                (object instanceof Throwable) ? (Throwable) object : null,
                 isGroup);
     }
 
@@ -401,6 +412,7 @@ public final class SimpleLog {
     public static void te(String tag, Object object) {
         boolean isGroup = isGroupObject(object);
         printLog(LOG_LEVEL_ERROR, getMessageFromObject(object), false, tag,
+                (object instanceof Throwable) ? (Throwable) object : null,
                 isGroup);
     }
 
@@ -414,6 +426,7 @@ public final class SimpleLog {
     public static void ti(String tag, Object object) {
         boolean isGroup = isGroupObject(object);
         printLog(LOG_LEVEL_INFO, getMessageFromObject(object), false, tag,
+                (object instanceof Throwable) ? (Throwable) object : null,
                 isGroup);
     }
 
@@ -427,6 +440,7 @@ public final class SimpleLog {
     public static void tv(String tag, Object object) {
         boolean isGroup = isGroupObject(object);
         printLog(LOG_LEVEL_VERBOSE, getMessageFromObject(object), false, tag,
+                (object instanceof Throwable) ? (Throwable) object : null,
                 isGroup);
     }
 
@@ -440,6 +454,7 @@ public final class SimpleLog {
     public static void tw(String tag, Object object) {
         boolean isGroup = isGroupObject(object);
         printLog(LOG_LEVEL_WARNING, getMessageFromObject(object), false, tag,
+                (object instanceof Throwable) ? (Throwable) object : null,
                 isGroup);
     }
 
@@ -453,6 +468,7 @@ public final class SimpleLog {
     public static void twtf(String tag, Object object) {
         boolean isGroup = isGroupObject(object);
         printLog(LOG_LEVEL_ASSERT, getMessageFromObject(object), false, tag,
+                (object instanceof Throwable) ? (Throwable) object : null,
                 isGroup);
     }
 
@@ -465,6 +481,7 @@ public final class SimpleLog {
     public static void fd(Object object) {
         boolean isGroup = isGroupObject(object);
         printLog(LOG_LEVEL_DEBUG, getMessageFromObject(object), true, getTagFromObject(object),
+                (object instanceof Throwable) ? (Throwable) object : null,
                 isGroup);
     }
 
@@ -477,6 +494,7 @@ public final class SimpleLog {
     public static void fe(Object object) {
         boolean isGroup = isGroupObject(object);
         printLog(LOG_LEVEL_ERROR, getMessageFromObject(object), true, getTagFromObject(object),
+                (object instanceof Throwable) ? (Throwable) object : null,
                 isGroup);
     }
 
@@ -489,6 +507,7 @@ public final class SimpleLog {
     public static void fi(Object object) {
         boolean isGroup = isGroupObject(object);
         printLog(LOG_LEVEL_INFO, getMessageFromObject(object), true, getTagFromObject(object),
+                (object instanceof Throwable) ? (Throwable) object : null,
                 isGroup);
     }
 
@@ -501,6 +520,7 @@ public final class SimpleLog {
     public static void fv(Object object) {
         boolean isGroup = isGroupObject(object);
         printLog(LOG_LEVEL_VERBOSE, getMessageFromObject(object), true, getTagFromObject(object),
+                (object instanceof Throwable) ? (Throwable) object : null,
                 isGroup);
     }
 
@@ -513,6 +533,7 @@ public final class SimpleLog {
     public static void fw(Object object) {
         boolean isGroup = isGroupObject(object);
         printLog(LOG_LEVEL_WARNING, getMessageFromObject(object), true, getTagFromObject(object),
+                (object instanceof Throwable) ? (Throwable) object : null,
                 isGroup);
     }
 
@@ -525,6 +546,7 @@ public final class SimpleLog {
     public static void fwtf(Object object) {
         boolean isGroup = isGroupObject(object);
         printLog(LOG_LEVEL_ASSERT, getMessageFromObject(object), true, getTagFromObject(object),
+                (object instanceof Throwable) ? (Throwable) object : null,
                 isGroup);
     }
 
@@ -539,6 +561,7 @@ public final class SimpleLog {
     public static void tfd(String tag, Object object) {
         boolean isGroup = isGroupObject(object);
         printLog(LOG_LEVEL_DEBUG, getMessageFromObject(object), true, tag,
+                (object instanceof Throwable) ? (Throwable) object : null,
                 isGroup);
     }
 
@@ -553,6 +576,7 @@ public final class SimpleLog {
     public static void tfe(String tag, Object object) {
         boolean isGroup = isGroupObject(object);
         printLog(LOG_LEVEL_ERROR, getMessageFromObject(object), true, tag,
+                (object instanceof Throwable) ? (Throwable) object : null,
                 isGroup);
     }
 
@@ -567,6 +591,7 @@ public final class SimpleLog {
     public static void tfi(String tag, Object object) {
         boolean isGroup = isGroupObject(object);
         printLog(LOG_LEVEL_INFO, getMessageFromObject(object), true, tag,
+                (object instanceof Throwable) ? (Throwable) object : null,
                 isGroup);
     }
 
@@ -581,6 +606,7 @@ public final class SimpleLog {
     public static void tfv(String tag, Object object) {
         boolean isGroup = isGroupObject(object);
         printLog(LOG_LEVEL_VERBOSE, getMessageFromObject(object), true, tag,
+                (object instanceof Throwable) ? (Throwable) object : null,
                 isGroup);
     }
 
@@ -595,6 +621,7 @@ public final class SimpleLog {
     public static void tfw(String tag, Object object) {
         boolean isGroup = isGroupObject(object);
         printLog(LOG_LEVEL_WARNING, getMessageFromObject(object), true, tag,
+                (object instanceof Throwable) ? (Throwable) object : null,
                 isGroup);
     }
 
@@ -609,6 +636,7 @@ public final class SimpleLog {
     public static void tfwtf(String tag, Object object) {
         boolean isGroup = isGroupObject(object);
         printLog(LOG_LEVEL_ASSERT, getMessageFromObject(object), true, tag,
+                (object instanceof Throwable) ? (Throwable) object : null,
                 isGroup);
     }
 
@@ -619,7 +647,7 @@ public final class SimpleLog {
      * @param args   args to use with {@link String#format}
      */
     public static void d(String format, Object... args) {
-        printLog(LOG_LEVEL_DEBUG, formatText(format, args), false, null, false);
+        printLog(LOG_LEVEL_DEBUG, formatText(format, args), false, null, null, false);
     }
 
     /**
@@ -629,7 +657,7 @@ public final class SimpleLog {
      * @param args   args to use with {@link String#format}
      */
     public static void e(String format, Object... args) {
-        printLog(LOG_LEVEL_ERROR, formatText(format, args), false, null, false);
+        printLog(LOG_LEVEL_ERROR, formatText(format, args), false, null, null, false);
     }
 
     /**
@@ -639,7 +667,7 @@ public final class SimpleLog {
      * @param args   args to use with {@link String#format}
      */
     public static void i(String format, Object... args) {
-        printLog(LOG_LEVEL_INFO, formatText(format, args), false, null, false);
+        printLog(LOG_LEVEL_INFO, formatText(format, args), false, null, null, false);
     }
 
     /**
@@ -649,7 +677,7 @@ public final class SimpleLog {
      * @param args   args to use with {@link String#format}
      */
     public static void v(String format, Object... args) {
-        printLog(LOG_LEVEL_VERBOSE, formatText(format, args), false, null, false);
+        printLog(LOG_LEVEL_VERBOSE, formatText(format, args), false, null, null, false);
     }
 
     /**
@@ -659,7 +687,7 @@ public final class SimpleLog {
      * @param args   args to use with {@link String#format}
      */
     public static void w(String format, Object... args) {
-        printLog(LOG_LEVEL_WARNING, formatText(format, args), false, null, false);
+        printLog(LOG_LEVEL_WARNING, formatText(format, args), false, null, null, false);
     }
 
     /**
@@ -669,7 +697,79 @@ public final class SimpleLog {
      * @param args   args to use with {@link String#format}
      */
     public static void wtf(String format, Object... args) {
-        printLog(LOG_LEVEL_ASSERT, formatText(format, args), false, null, false);
+        printLog(LOG_LEVEL_ASSERT, formatText(format, args), false, null, null, false);
+    }
+
+    /**
+     * Print Object into logcat with custom tag
+     * Object can be any type or {@link Group}
+     *
+     * @param tag     tag to use
+     * @param format  string to print
+     * @param objects args to use with {@link String#format}
+     */
+    public static void td(String tag, String format, Object... objects) {
+        printLog(LOG_LEVEL_DEBUG, formatText(format, objects), false, tag, null, false);
+    }
+
+    /**
+     * Print Object into logcat with custom tag
+     * Object can be any type or {@link Group}
+     *
+     * @param tag     tag to use
+     * @param format  string to print
+     * @param objects args to use with {@link String#format}
+     */
+    public static void te(String tag, String format, Object... objects) {
+        printLog(LOG_LEVEL_ERROR, formatText(format, objects), false, tag, null, false);
+    }
+
+    /**
+     * Print Object into logcat with custom tag
+     * Object can be any type or {@link Group}
+     *
+     * @param tag     tag to use
+     * @param format  string to print
+     * @param objects args to use with {@link String#format}
+     */
+    public static void ti(String tag, String format, Object... objects) {
+        printLog(LOG_LEVEL_INFO, formatText(format, objects), false, tag, null, false);
+    }
+
+    /**
+     * Print Object into logcat with custom tag
+     * Object can be any type or {@link Group}
+     *
+     * @param tag     tag to use
+     * @param format  string to print
+     * @param objects args to use with {@link String#format}
+     */
+    public static void tv(String tag, String format, Object... objects) {
+        printLog(LOG_LEVEL_VERBOSE, formatText(format, objects), false, tag, null, false);
+    }
+
+    /**
+     * Print Object into logcat with custom tag
+     * Object can be any type or {@link Group}
+     *
+     * @param tag     tag to use
+     * @param format  string to print
+     * @param objects args to use with {@link String#format}
+     */
+    public static void tw(String tag, String format, Object... objects) {
+        printLog(LOG_LEVEL_WARNING, formatText(format, objects), false, tag, null, false);
+    }
+
+    /**
+     * Print Object into logcat with custom tag
+     * Object can be any type or {@link Group}
+     *
+     * @param tag     tag to use
+     * @param format  string to print
+     * @param objects args to use with {@link String#format}
+     */
+    public static void twtf(String tag, String format, Object... objects) {
+        printLog(LOG_LEVEL_ASSERT, formatText(format, objects), false, tag, null, false);
     }
 
     /**
@@ -680,7 +780,7 @@ public final class SimpleLog {
      * @param args   args to use with {@link String#format}
      */
     public static void fd(String format, Object... args) {
-        printLog(LOG_LEVEL_DEBUG, formatText(format, args), true, null, false);
+        printLog(LOG_LEVEL_DEBUG, formatText(format, args), true, null, null, false);
     }
 
     /**
@@ -691,7 +791,7 @@ public final class SimpleLog {
      * @param args   args to use with {@link String#format}
      */
     public static void fe(String format, Object... args) {
-        printLog(LOG_LEVEL_ERROR, formatText(format, args), true, null, false);
+        printLog(LOG_LEVEL_ERROR, formatText(format, args), true, null, null, false);
     }
 
     /**
@@ -702,7 +802,7 @@ public final class SimpleLog {
      * @param args   args to use with {@link String#format}
      */
     public static void fi(String format, Object... args) {
-        printLog(LOG_LEVEL_INFO, formatText(format, args), true, null, false);
+        printLog(LOG_LEVEL_INFO, formatText(format, args), true, null, null, false);
     }
 
     /**
@@ -713,7 +813,7 @@ public final class SimpleLog {
      * @param args   args to use with {@link String#format}
      */
     public static void fv(String format, Object... args) {
-        printLog(LOG_LEVEL_VERBOSE, formatText(format, args), true, null, false);
+        printLog(LOG_LEVEL_VERBOSE, formatText(format, args), true, null, null, false);
     }
 
     /**
@@ -724,7 +824,7 @@ public final class SimpleLog {
      * @param args   args to use with {@link String#format}
      */
     public static void fw(String format, Object... args) {
-        printLog(LOG_LEVEL_WARNING, formatText(format, args), true, null, false);
+        printLog(LOG_LEVEL_WARNING, formatText(format, args), true, null, null, false);
     }
 
     /**
@@ -735,54 +835,141 @@ public final class SimpleLog {
      * @param args   args to use with {@link String#format}
      */
     public static void fwtf(String format, Object... args) {
-        printLog(LOG_LEVEL_ASSERT, formatText(format, args), true, null, false);
+        printLog(LOG_LEVEL_ASSERT, formatText(format, args), true, null, null, false);
     }
 
     /**
-     * Print throwable with stack trace
-     *
-     * @param throwable throwable to ptint
-     */
-    public static void e(Throwable throwable) {
-        printLog(LOG_LEVEL_ERROR, getMessageFromObject(throwable), false, null, false);
-    }
-
-    /**
-     * Print throwable with stack trace and with custom tag
-     *
-     * @param tag       tag to use
-     * @param throwable throwable to ptint
-     */
-    public static void te(String tag, Throwable throwable) {
-        printLog(LOG_LEVEL_ERROR, getMessageFromObject(throwable), false, tag, false);
-    }
-
-    /**
-     * Print throwable with stack trace and current method name at start
-     *
-     * @param throwable throwable to ptint
-     */
-    public static void fe(Throwable throwable) {
-        printLog(LOG_LEVEL_ERROR, getMessageFromObject(throwable), true, null, false);
-    }
-
-    /**
-     * Print throwable with stack trace, current method name at start
+     * Print Object into logcat with current function name at start of log
      * and with custom tag
+     * Object can be any type or {@link Group}
      *
-     * @param tag       tag to use
-     * @param throwable throwable to ptint
+     * @param tag     tag to use
+     * @param format  string to print
+     * @param objects args to use with {@link String#format}
      */
-    public static void tfe(String tag, Throwable throwable) {
-        printLog(LOG_LEVEL_ERROR, getMessageFromObject(throwable), true, tag, false);
+    public static void tfd(String tag, String format, Object... objects) {
+        printLog(LOG_LEVEL_DEBUG, formatText(format, objects), true, tag, null, false);
+    }
+
+    /**
+     * Print Object into logcat with current function name at start of log
+     * and with custom tag
+     * Object can be any type or {@link Group}
+     *
+     * @param tag     tag to use
+     * @param format  string to print
+     * @param objects args to use with {@link String#format}
+     */
+    public static void tfe(String tag, String format, Object... objects) {
+        printLog(LOG_LEVEL_ERROR, formatText(format, objects), true, tag, null, false);
+    }
+
+    /**
+     * Print Object into logcat with current function name at start of log
+     * and with custom tag
+     * Object can be any type or {@link Group}
+     *
+     * @param tag     tag to use
+     * @param format  string to print
+     * @param objects args to use with {@link String#format}
+     */
+    public static void tfi(String tag, String format, Object... objects) {
+        printLog(LOG_LEVEL_INFO, formatText(format, objects), true, tag, null, false);
+    }
+
+    /**
+     * Print Object into logcat with current function name at start of log
+     * and with custom tag
+     * Object can be any type or {@link Group}
+     *
+     * @param tag     tag to use
+     * @param format  string to print
+     * @param objects args to use with {@link String#format}
+     */
+    public static void tfv(String tag, String format, Object... objects) {
+        printLog(LOG_LEVEL_VERBOSE, formatText(format, objects), true, tag, null, false);
+    }
+
+    /**
+     * Print Object into logcat with current function name at start of log
+     * and with custom tag
+     * Object can be any type or {@link Group}
+     *
+     * @param tag     tag to use
+     * @param format  string to print
+     * @param objects args to use with {@link String#format}
+     */
+    public static void tfw(String tag, String format, Object... objects) {
+        printLog(LOG_LEVEL_WARNING, formatText(format, objects), true, tag, null, false);
+    }
+
+    /**
+     * Print Object into logcat with current function name at start of log
+     * and with custom tag
+     * Object can be any type or {@link Group}
+     *
+     * @param tag     tag to use
+     * @param format  string to print
+     * @param objects args to use with {@link String#format}
+     */
+    public static void tfwtf(String tag, String format, Object... objects) {
+        printLog(LOG_LEVEL_ASSERT, formatText(format, objects), true, tag, null, false);
+    }
+
+//    /**
+//     * Print throwable with stack trace
+//     *
+//     * @param throwable throwable to ptint
+//     */
+//    public static void e(Throwable throwable) {
+//        printLog(LOG_LEVEL_ERROR, getMessageFromObject(throwable), false, null, throwable, false);
+//    }
+//
+//    /**
+//     * Print throwable with stack trace and with custom tag
+//     *
+//     * @param tag       tag to use
+//     * @param throwable throwable to ptint
+//     */
+//    public static void te(String tag, Throwable throwable) {
+//        printLog(LOG_LEVEL_ERROR, getMessageFromObject(throwable), false, tag, null, false);
+//    }
+//
+//    /**
+//     * Print throwable with stack trace and current method name at start
+//     *
+//     * @param throwable throwable to ptint
+//     */
+//    public static void fe(Throwable throwable) {
+//        printLog(LOG_LEVEL_ERROR, getMessageFromObject(throwable), true, null, null, false);
+//    }
+//
+//    /**
+//     * Print throwable with stack trace, current method name at start
+//     * and with custom tag
+//     *
+//     * @param tag       tag to use
+//     * @param throwable throwable to ptint
+//     */
+//    public static void tfe(String tag, Throwable throwable) {
+//        printLog(LOG_LEVEL_ERROR, getMessageFromObject(throwable), true, tag, null, false);
+//    }
+
+    public static void addLogProcessor(@NonNull LogProcessor logProcessor) {
+        sLogProcessorList.add(logProcessor);
+    }
+
+    public static void removeLogProcessor(@NonNull LogProcessor logProcessor) {
+        sLogProcessorList.remove(logProcessor);
     }
 
     private static void printLog(@LogLevel int logLevel,
                                  @Nullable String inMessage,
                                  boolean printMethodName,
                                  @Nullable String inTag,
+                                 @Nullable Throwable e,
                                  boolean isGroup) {
-        if (!mLogLevels.contains(logLevel)) return;
+        if (!sLogLevels.contains(logLevel)) return;
         String message = inMessage;
         String tag = inTag;
         if (message == null) message = "";
@@ -806,6 +993,11 @@ public final class SimpleLog {
                 .trim();
         if (printMethodName) {
             String method = element.getMethodName();
+            method = method.replace("lambda$", "");
+            int index = method.indexOf('$');
+            if (index >= 0) {
+                method = method.substring(0, index);
+            }
             if (message.isEmpty()) {
                 message = method + "()";
             } else {
@@ -851,6 +1043,9 @@ public final class SimpleLog {
                     break;
             }
         }
+        for (LogProcessor logProcessor : sLogProcessorList) {
+            logProcessor.handleProcessLog(tag, message, logLevel, e);
+        }
     }
 
     @Retention(RetentionPolicy.SOURCE)
@@ -862,7 +1057,7 @@ public final class SimpleLog {
             LOG_LEVEL_WARNING,
             LOG_LEVEL_ASSERT
     })
-    private @interface LogLevel {
+    public @interface LogLevel {
     }
 }
 

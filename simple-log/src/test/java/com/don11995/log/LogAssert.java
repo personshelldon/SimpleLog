@@ -1,5 +1,5 @@
 /*
- * Modified by Vladyslav Lozytskyi on 12.02.18 13:09
+ * Modified by Vladyslav Lozytskyi on 4/10/18 12:21 AM
  * Copyright (c) 2018. All rights reserved.
  */
 
@@ -49,11 +49,31 @@ class LogAssert {
         return hasMessage(Log.ASSERT, tag, message);
     }
 
+    LogAssert hasDebugMessageStartsWith(String tag, String message) {
+        return hasMessageStartWith(Log.DEBUG, tag, message);
+    }
+
+    LogAssert hasErrorMessageStartsWith(String tag, String message) {
+        return hasMessageStartWith(Log.ERROR, tag, message);
+    }
+
+    LogAssert hasWarnMessageStartsWith(String tag, String message) {
+        return hasMessageStartWith(Log.WARN, tag, message);
+    }
+
     private LogAssert hasMessage(int priority, String tag, String message) {
         ShadowLog.LogItem item = items.get(index++);
         assertThat(item.type).isEqualTo(priority);
         assertThat(item.tag).isEqualTo(tag);
         assertThat(item.msg).isEqualTo(message);
+        return this;
+    }
+
+    private LogAssert hasMessageStartWith(int priority, String tag, String message) {
+        ShadowLog.LogItem item = items.get(index++);
+        assertThat(item.type).isEqualTo(priority);
+        assertThat(item.tag).isEqualTo(tag);
+        assertThat(item.msg).startsWith(message);
         return this;
     }
 

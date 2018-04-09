@@ -1,5 +1,5 @@
 <?xml version="1.0"?><!--
-  ~ Modified by Vladyslav Lozytskyi on 3/23/18 2:20 PM
+  ~ Modified by Vladyslav Lozytskyi on 4/10/18 1:00 AM
   ~ Copyright (c) 2018. All rights reserved.
   -->
 
@@ -26,6 +26,8 @@
     <module name="FileTabCharacter" />
 
     <module name="TreeWalker">
+
+        <module name="SuppressionCommentFilter" />
 
         <!-- See http://checkstyle.sf.net/config_sizes.html !-->
         <!-- Checks for long lines. !-->

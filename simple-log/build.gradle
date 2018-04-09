@@ -1,5 +1,5 @@
 /*
- * Modified by Vladyslav Lozytskyi on 19.03.18 12:55
+ * Modified by Vladyslav Lozytskyi on 4/9/18 11:12 PM
  * Copyright (c) 2018. All rights reserved.
  */
 
@@ -8,6 +8,11 @@ apply plugin: 'com.android.library'
 android {
 
     compileSdkVersion versions.compileSdkVersion
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_8
+    }
 
     testOptions {
         unitTests {

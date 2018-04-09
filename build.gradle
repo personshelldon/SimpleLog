@@ -1,5 +1,5 @@
 /*
- * Modified by Vladyslav Lozytskyi on 3/23/18 1:52 PM
+ * Modified by Vladyslav Lozytskyi on 4/9/18 11:00 PM
  * Copyright (c) 2018. All rights reserved.
  */
 
@@ -12,7 +12,7 @@ buildscript {
         'minSdkVersion': 9,
         'targetSdkVersion': 27,
         'versionCode' : 26,
-        'supportLibrary' : '27.1.0',
+        'supportLibrary' : '27.1.1',
         'versionName' : '1.2.6',
     ]
 
@@ -22,7 +22,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.1.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
         // NOTE: Do not place your application dependencies here; they belong
