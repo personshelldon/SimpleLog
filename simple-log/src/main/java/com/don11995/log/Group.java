@@ -1,5 +1,5 @@
 /*
- * Modified by Vladyslav Lozytskyi on 12.02.18 13:09
+ * Modified by Vladyslav Lozytskyi on 11.04.18 1:37
  * Copyright (c) 2018. All rights reserved.
  */
 
@@ -15,13 +15,18 @@ public class Group {
     private String mText;
     private String mTag;
 
+    /**
+     * Create group for text and print it in one block
+     *
+     * @param group name of the group
+     */
     public Group(String group) {
         mGroupName = group;
     }
 
     private void handleAppend(String text, Object... args) {
         if (!TextUtils.isEmpty(mText)) {
-            mText += '\n';
+            mText += "\n\t";
         } else {
             mText = "";
         }
@@ -32,11 +37,24 @@ public class Group {
         }
     }
 
+    /**
+     * Append new line to group
+     *
+     * @param text format text
+     * @param args args to use with {@link String#format(String, Object...)}
+     * @return current group
+     */
     public Group append(String text, Object... args) {
         handleAppend(text, args);
         return this;
     }
 
+    /**
+     * Set custom tag to output in logcat
+     *
+     * @param tag custom tag for output log
+     * @return current group
+     */
     public Group tag(String tag) {
         mTag = tag;
         return this;

@@ -1,5 +1,5 @@
 /*
- * Modified by Vladyslav Lozytskyi on 4/10/18 12:57 AM
+ * Modified by Vladyslav Lozytskyi on 11.04.18 1:29
  * Copyright (c) 2018. All rights reserved.
  */
 
@@ -29,7 +29,7 @@ import java.util.Set;
  * depending on where the log was called, and also solves some additional tasks.
  */
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public final class SimpleLog {
 
     /**
@@ -94,11 +94,13 @@ public final class SimpleLog {
     private static char sDividerChar = '-';
 
     /**
-     * Lenght of one block {@link sDividerChar}
+     * Lenght of one block {@link #sDividerChar}
      */
     private static int sDividerBlockSize = 8;
 
     private static List<LogProcessor> sLogProcessorList;
+
+    private static boolean sPrintReferences = false;
 
     static {
         sLogLevels = new HashSet<>();
@@ -186,11 +188,11 @@ public final class SimpleLog {
         Arrays.fill(buffer,
                 sDividerChar);
         String divider = new String(buffer);
-        format = divider + groupName + divider + "\n" + format;
+        format = divider + groupName + divider + "\n\t" + format;
         buffer = new char[groupName.length()];
         Arrays.fill(buffer,
                 sDividerChar);
-        format += "\n" + divider + divider + new String(buffer);
+        format += "\n\t" + divider + divider + new String(buffer);
         return format;
     }
 
@@ -916,51 +918,46 @@ public final class SimpleLog {
         printLog(LOG_LEVEL_ASSERT, formatText(format, objects), true, tag, null, false);
     }
 
-//    /**
-//     * Print throwable with stack trace
-//     *
-//     * @param throwable throwable to ptint
-//     */
-//    public static void e(Throwable throwable) {
-//        printLog(LOG_LEVEL_ERROR, getMessageFromObject(throwable), false, null, throwable, false);
-//    }
-//
-//    /**
-//     * Print throwable with stack trace and with custom tag
-//     *
-//     * @param tag       tag to use
-//     * @param throwable throwable to ptint
-//     */
-//    public static void te(String tag, Throwable throwable) {
-//        printLog(LOG_LEVEL_ERROR, getMessageFromObject(throwable), false, tag, null, false);
-//    }
-//
-//    /**
-//     * Print throwable with stack trace and current method name at start
-//     *
-//     * @param throwable throwable to ptint
-//     */
-//    public static void fe(Throwable throwable) {
-//        printLog(LOG_LEVEL_ERROR, getMessageFromObject(throwable), true, null, null, false);
-//    }
-//
-//    /**
-//     * Print throwable with stack trace, current method name at start
-//     * and with custom tag
-//     *
-//     * @param tag       tag to use
-//     * @param throwable throwable to ptint
-//     */
-//    public static void tfe(String tag, Throwable throwable) {
-//        printLog(LOG_LEVEL_ERROR, getMessageFromObject(throwable), true, tag, null, false);
-//    }
-
+    /**
+     * Add {@link LogProcessor} to log callbacks.
+     * {@link LogProcessor} can add additional logic to every log call
+     *
+     * @param logProcessor {@link LogProcessor} to add
+     */
     public static void addLogProcessor(@NonNull LogProcessor logProcessor) {
         sLogProcessorList.add(logProcessor);
     }
 
+    /**
+     * Remove {@link LogProcessor} from log callbacks
+     *
+     * @param logProcessor {@link LogProcessor} to delete
+     */
     public static void removeLogProcessor(@NonNull LogProcessor logProcessor) {
         sLogProcessorList.remove(logProcessor);
+    }
+
+    /**
+     * Enbale/disable printing line of code where log was called
+     *
+     * @param enabled enable/disable print log reference
+     */
+    public static void setPrintReferences(boolean enabled) {
+        sPrintReferences = enabled;
+    }
+
+    private static String detectClassName(String origClassName) {
+        if (TextUtils.isEmpty(origClassName)) return origClassName;
+        String className = origClassName;
+        int lastDot = className.lastIndexOf('.');
+        if (lastDot >= 0) {
+            className = className.substring(lastDot + 1);
+        }
+        int firstDollar = className.indexOf('$');
+        if (firstDollar > 0) {
+            className = className.substring(0, firstDollar);
+        }
+        return className;
     }
 
     private static void printLog(@LogLevel int logLevel,
@@ -974,16 +971,9 @@ public final class SimpleLog {
         String tag = inTag;
         if (message == null) message = "";
         StackTraceElement element = new Throwable().getStackTrace()[CALL_STACK_INDEX];
+        String className = detectClassName(element.getClassName());
         if (TextUtils.isEmpty(tag)) {
-            tag = element.getClassName();
-        }
-        int lastDot = tag.lastIndexOf('.');
-        if (lastDot >= 0) {
-            tag = tag.substring(lastDot + 1);
-        }
-        int firstDollar = tag.indexOf('$');
-        if (firstDollar > 0) {
-            tag = tag.substring(0, firstDollar);
+            tag = className;
         }
         if (tag.length() > MAX_TAG_LENGTH && Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
             tag = tag.substring(0, MAX_TAG_LENGTH);
@@ -993,18 +983,20 @@ public final class SimpleLog {
                 .trim();
         if (printMethodName) {
             String method = element.getMethodName();
-            method = method.replace("lambda$", "");
-            int index = method.indexOf('$');
-            if (index >= 0) {
-                method = method.substring(0, index);
-            }
             if (message.isEmpty()) {
                 message = method + "()";
             } else {
                 message = method + "() -> "
-                        + (isGroup ? "\n" : "")
+                        + (isGroup ? "\n\t" : "")
                         + message;
             }
+        }
+        if (sPrintReferences && e == null) {
+            message = '(' + className + ".java:"
+                    + element.getLineNumber() + ')'
+                    + (isGroup ? "\n\t" : ' ')
+                    + message;
+            message = message.trim();
         }
         if (message.isEmpty()) return;
         ArrayList<String> logs = new ArrayList<>();
@@ -1048,6 +1040,7 @@ public final class SimpleLog {
         }
     }
 
+    @SuppressWarnings("WeakerAccess")
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({
             LOG_LEVEL_DEBUG,

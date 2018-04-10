@@ -1,5 +1,5 @@
 /*
- * Modified by Vladyslav Lozytskyi on 4/10/18 12:57 AM
+ * Modified by Vladyslav Lozytskyi on 11.04.18 0:20
  * Copyright (c) 2018. All rights reserved.
  */
 
@@ -81,9 +81,9 @@ public class SimpleLogTest {
 
     @Test
     public void testPrintGroup() {
-        String finalResult = "--------TITLE--------\n"
-                + "Line 1: arg1\n"
-                + "Line 2: arg2\n"
+        String finalResult = "--------TITLE--------\n\t"
+                + "Line 1: arg1\n\t"
+                + "Line 2: arg2\n\t"
                 + "---------------------";
         String arg1 = "arg1";
         String arg2 = "arg2";
@@ -107,10 +107,10 @@ public class SimpleLogTest {
 
     @Test
     public void testPrintGroupWithFunctionName() {
-        String finalResult = "testPrintGroupWithFunctionName() -> \n"
-                + "--------TITLE--------\n"
-                + "Line 1: arg1\n"
-                + "Line 2: arg2\n"
+        String finalResult = "testPrintGroupWithFunctionName() -> \n\t"
+                + "--------TITLE--------\n\t"
+                + "Line 1: arg1\n\t"
+                + "Line 2: arg2\n\t"
                 + "---------------------";
         String arg1 = "arg1";
         String arg2 = "arg2";
@@ -295,94 +295,6 @@ public class SimpleLogTest {
                 .hasNoMoreMessages();
     }
 
-    @SuppressWarnings("Convert2Lambda")
-    @Test
-    public void testPrintAbstractInnerClasses() {
-        final String testTag = "SimpleLogTest";
-        final String testLog = "TestLog";
-        final String testLog2 = "onEvent() -> TestLog";
-        final String testLog3 = "testPrintAbstractInnerClasses() -> TestLog";
-        final String testLog4 = "null() -> TestLog";
-        AbstractInnerClass.TestListener listener = () -> {
-            SimpleLog.d(testLog);
-            SimpleLog.fd(testLog);
-
-        };
-        AbstractInnerClass.TestListener listener2 = new AbstractInnerClass.TestListener() {
-            @Override
-            public void onEvent() {
-                SimpleLog.d(testLog);
-                SimpleLog.fd(testLog);
-            }
-        };
-
-        AbstractInnerClass.TestListener listener3 = new AbstractInnerClass.TestListener() {
-            @Override
-            public void onEvent() {
-                AbstractInnerClass.TestListener listener4 = new AbstractInnerClass.TestListener() {
-                    @Override
-                    public void onEvent() {
-                        SimpleLog.d(testLog);
-                        SimpleLog.fd(testLog);
-                    }
-                };
-                listener4.onEvent();
-            }
-        };
-
-        AbstractInnerClass.TestListener listener5 = () -> {
-            AbstractInnerClass.TestListener listener6 = new AbstractInnerClass.TestListener() {
-                @Override
-                public void onEvent() {
-                    SimpleLog.d(testLog);
-                    SimpleLog.fd(testLog);
-                }
-            };
-            listener6.onEvent();
-        };
-
-        AbstractInnerClass.TestListener listener7 = new AbstractInnerClass.TestListener() {
-            @Override
-            public void onEvent() {
-                AbstractInnerClass.TestListener listener8 = () -> {
-                    SimpleLog.d(testLog);
-                    SimpleLog.fd(testLog);
-                };
-                listener8.onEvent();
-            }
-        };
-
-        AbstractInnerClass.TestListener listener9 = () -> {
-            AbstractInnerClass.TestListener listener10 = () -> {
-                SimpleLog.d(testLog);
-                SimpleLog.fd(testLog);
-            };
-            listener10.onEvent();
-        };
-
-        listener.onEvent();
-        listener2.onEvent();
-        listener3.onEvent();
-        listener5.onEvent();
-        listener7.onEvent();
-        listener9.onEvent();
-
-        assertLog()
-                .hasDebugMessage(testTag, testLog)
-                .hasDebugMessage(testTag, testLog3)
-                .hasDebugMessage(testTag, testLog)
-                .hasDebugMessage(testTag, testLog2)
-                .hasDebugMessage(testTag, testLog)
-                .hasDebugMessage(testTag, testLog2)
-                .hasDebugMessage(testTag, testLog)
-                .hasDebugMessage(testTag, testLog2)
-                .hasDebugMessage(testTag, testLog)
-                .hasDebugMessage(testTag, testLog2)
-                .hasDebugMessage(testTag, testLog)
-                .hasDebugMessage(testTag, testLog4)
-                .hasNoMoreMessages();
-    }
-
     @Test
     public void testLogProcessor() {
         LogProcessor logProcessor = new LogProcessor() {
@@ -425,6 +337,27 @@ public class SimpleLogTest {
         SimpleLog.e(new IOException("Test2"));
         assertLog().hasDebugMessageStartsWith(getClass().getSimpleName(), "java.io.IOException: Test")
                 .hasErrorMessageStartsWith(getClass().getSimpleName(), "java.io.IOException: Test2")
+                .hasNoMoreMessages();
+    }
+
+    @Test
+    public void testPrintReferences() {
+        SimpleLog.setPrintReferences(true);
+        SimpleLog.d("Test");
+        int codeLine1 = Thread.currentThread().getStackTrace()[1].getLineNumber() - 1;
+        SimpleLog.e(new Group("Group").append("Test"));
+        int codeLine2 = Thread.currentThread().getStackTrace()[1].getLineNumber() - 1;
+        SimpleLog.setPrintReferences(false);
+
+        String groupLog = "(" + getClass().getSimpleName() + ".java:" + codeLine2 + ")\n\t"
+                + "--------Group--------\n\t"
+                + "Test\n\t"
+                + "---------------------";
+
+        assertLog().hasDebugMessage(getClass().getSimpleName(),
+                "(" + getClass().getSimpleName()
+                        + ".java:" + codeLine1 + ") Test")
+                .hasErrorMessage(getClass().getSimpleName(), groupLog)
                 .hasNoMoreMessages();
     }
 }

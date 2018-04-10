@@ -10,7 +10,7 @@
         <entry key="location-1" value="BUNDLED:(bundled):Google Checks" />
         <entry key="location-2" value="LOCAL_FILE:$PRJ_DIR$/config/checkstyle-config.xml:Project" />
         <entry key="property-2.checkstyleSuppressionsPath" value="./checkstyle-suppressions.xml" />
-        <entry key="scan-before-checkin" value="false" />
+        <entry key="scan-before-checkin" value="true" />
         <entry key="scanscope" value="JavaOnly" />
         <entry key="suppress-errors" value="true" />
       </map>

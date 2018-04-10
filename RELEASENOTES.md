@@ -1,3 +1,7 @@
+## Version 1.3.0
+* New function: print lines where log called (`setPrintReferences` function)
+* New function: `LogProcessor` class allows to add additional logic to every log call
+
 ## Version 1.2.6
 * Print new line after function name if trying to print `Group` class
 * Updated Bintray plugin

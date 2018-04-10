@@ -1,5 +1,5 @@
 /*
- * Modified by Vladyslav Lozytskyi on 12.02.18 13:08
+ * Modified by Vladyslav Lozytskyi on 11.04.18 1:39
  * Copyright (c) 2018. All rights reserved.
  */
 
@@ -9,12 +9,14 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.don11995.log.Group;
+import com.don11995.log.LogProcessor;
 import com.don11995.log.MapClass;
 import com.don11995.log.MapField;
 import com.don11995.log.SimpleLog;
@@ -67,18 +69,28 @@ public class MainActivity
     private static final Group GROUP = new Group("TITLE")
             .append("Line 1")
             .append("Line 2")
-            .tag("TAG");
+            .tag("TEST_TAG");
 
     private CheckBox mDebugCheckbox;
     private CheckBox mErrorCheckbox;
     private CheckBox mInfoCheckbox;
-    private CheckBox mVerbodeCheckbox;
+    private CheckBox mVerboseCheckbox;
     private CheckBox mWarningCheckbox;
     private CheckBox mAssertCheckbox;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SimpleLog.setPrintReferences(true);
+        SimpleLog.addLogProcessor(new LogProcessor() {
+            @Override
+            public void processLog(String tag,
+                                   String message,
+                                   int priority,
+                                   @Nullable Throwable e) {
+                Log.d("LogProcessor", "This code called on every log!");
+            }
+        });
         setContentView(R.layout.main_activity);
         findViewById(R.id.print_d).setOnClickListener(this);
         findViewById(R.id.print_e).setOnClickListener(this);
@@ -114,7 +126,7 @@ public class MainActivity
         mDebugCheckbox = findViewById(R.id.log_debug_checkbox);
         mErrorCheckbox = findViewById(R.id.log_error_checkbox);
         mInfoCheckbox = findViewById(R.id.log_info_checkbox);
-        mVerbodeCheckbox = findViewById(R.id.log_verbose_checkbox);
+        mVerboseCheckbox = findViewById(R.id.log_verbose_checkbox);
         mWarningCheckbox = findViewById(R.id.log_warning_checkbox);
         mAssertCheckbox = findViewById(R.id.log_assert_checkbox);
 
@@ -132,7 +144,7 @@ public class MainActivity
             mInfoCheckbox.setChecked(true);
         }
         if (SimpleLog.isLogLevelEnabled(SimpleLog.LOG_LEVEL_VERBOSE)) {
-            mVerbodeCheckbox.setChecked(true);
+            mVerboseCheckbox.setChecked(true);
         }
         if (SimpleLog.isLogLevelEnabled(SimpleLog.LOG_LEVEL_WARNING)) {
             mWarningCheckbox.setChecked(true);
@@ -144,7 +156,7 @@ public class MainActivity
         mDebugCheckbox.setOnCheckedChangeListener(this);
         mErrorCheckbox.setOnCheckedChangeListener(this);
         mInfoCheckbox.setOnCheckedChangeListener(this);
-        mVerbodeCheckbox.setOnCheckedChangeListener(this);
+        mVerboseCheckbox.setOnCheckedChangeListener(this);
         mWarningCheckbox.setOnCheckedChangeListener(this);
         mAssertCheckbox.setOnCheckedChangeListener(this);
 
