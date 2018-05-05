@@ -1,32 +1,29 @@
 /*
- * Modified by Vladyslav Lozytskyi on 11.04.18 0:22
+ * Modified by Vladyslav Lozytskyi on 05.05.18 23:05
  * Copyright (c) 2018. All rights reserved.
  */
 
 apply plugin: 'com.android.application'
-apply from: "$rootProject.projectDir/config/codestyle.gradle"
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
 
-    compileSdkVersion versions.compileSdkVersion
-
-    compileOptions {
-        targetCompatibility JavaVersion.VERSION_1_8
-        sourceCompatibility JavaVersion.VERSION_1_8
-    }
+    compileSdkVersion config.compileSdkVersion
 
     defaultConfig {
-        applicationId "com.don11995.log.example"
+        applicationId config.applicationId
         minSdkVersion 14
-        targetSdkVersion versions.targetSdkVersion
-        versionCode versions.versionCode
-        versionName versions.versionName
+        targetSdkVersion config.targetSdkVersion
+        versionCode config.versionCode
+        versionName config.versionName
     }
 }
 
 dependencies {
-    annotationProcessor project(':simple-log-processor')
-    implementation "com.android.support:appcompat-v7:$versions.supportLibrary"
-    implementation "com.android.support:support-annotations:$versions.supportLibrary"
+    kapt project(':simple-log-processor')
+    implementation "com.android.support:appcompat-v7:$versions.supportLibraryVersion"
+    implementation "com.android.support:support-annotations:$versions.supportLibraryVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlinVersion"
     implementation project(':simple-log')
 }

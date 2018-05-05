@@ -1,3 +1,9 @@
+## Version 1.4.0
+* Fully migrated to Kotlin
+* Added test support of Kotlin sources
+* Fixed: `LogProcessor` logic now called even if logs are disabled
+* Fixed: `LogProcessor` incorrect `message` parameter if log is too long
+
 ## Version 1.3.0
 * New function: print lines where log called (`setPrintReferences` function)
 * New function: `LogProcessor` class allows to add additional logic to every log call

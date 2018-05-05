@@ -1,18 +1,18 @@
 /*
- * Modified by Vladyslav Lozytskyi on 4/9/18 11:12 PM
+ * Modified by Vladyslav Lozytskyi on 05.05.18 23:29
  * Copyright (c) 2018. All rights reserved.
  */
 
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+tasks.withType(Javadoc).all {
+    enabled = false
+}
 
 android {
 
-    compileSdkVersion versions.compileSdkVersion
-
-    compileOptions {
-        targetCompatibility JavaVersion.VERSION_1_8
-        sourceCompatibility JavaVersion.VERSION_1_8
-    }
+    compileSdkVersion config.compileSdkVersion
 
     testOptions {
         unitTests {
@@ -21,18 +21,19 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion versions.minSdkVersion
-        targetSdkVersion versions.targetSdkVersion
-        versionCode versions.versionCode
-        versionName versions.versionName
+        minSdkVersion config.minSdkVersion
+        targetSdkVersion config.targetSdkVersion
+        versionCode config.versionCode
+        versionName config.versionName
     }
 }
 
 dependencies {
-    testImplementation "org.robolectric:robolectric:3.5.1"
-    testImplementation "junit:junit:4.12"
-    testImplementation "com.google.truth:truth:0.36"
-    implementation "com.android.support:support-annotations:$versions.supportLibrary"
+    testImplementation "org.robolectric:robolectric:3.8"
+    testImplementation "com.google.truth:truth:0.40"
+    implementation "com.android.support:support-annotations:$versions.supportLibraryVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlinVersion"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlinVersion"
 }
 
 ext {
@@ -48,7 +49,7 @@ ext {
     siteUrl = 'https://bitbucket.org/don11995/simplelog'
     gitUrl = 'https://bitbucket.org/don11995/simplelog'
 
-    libraryVersion = versions.versionName
+    libraryVersion = config.versionName
 
     developerId = 'personshelldon'
     developerName = 'Vladislav Lozitskyi'
