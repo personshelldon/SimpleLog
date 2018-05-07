@@ -1,3 +1,6 @@
+## Version 1.4.1
+* Fixed bug in `ValueMapperProcessor` when it can not run normally
+
 ## Version 1.4.0
 * Fully migrated to Kotlin
 * Added test support of Kotlin sources

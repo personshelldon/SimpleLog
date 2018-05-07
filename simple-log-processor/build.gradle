@@ -1,5 +1,5 @@
 /*
- * Modified by Vladyslav Lozytskyi on 05.05.18 23:29
+ * Modified by Vladyslav Lozytskyi on 07.05.18 13:42
  * Copyright (c) 2018. All rights reserved.
  */
 
@@ -7,7 +7,7 @@ apply plugin: 'java'
 apply plugin: 'kotlin'
 
 dependencies {
-    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlinVersion"
+//    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlinVersion"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlinVersion"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlinVersion"
 }

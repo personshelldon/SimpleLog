@@ -1,14 +1,11 @@
 /*
- * Modified by Vladyslav Lozytskyi on 05.05.18 15:51
+ * Modified by Vladyslav Lozytskyi on 07.05.18 13:39
  * Copyright (c) 2018. All rights reserved.
  */
 
 package com.don11995.log
 
 import java.io.IOException
-import java.nio.file.Files
-import java.nio.file.Paths
-import java.nio.file.StandardOpenOption
 import java.util.*
 import javax.annotation.processing.AbstractProcessor
 import javax.annotation.processing.RoundEnvironment
@@ -122,9 +119,7 @@ class ValueMapperProcessor : AbstractProcessor() {
     }
 
     private fun processMapClass(roundEnvironment: RoundEnvironment) {
-        var test = "START\n"
         for (element in roundEnvironment.getElementsAnnotatedWith(MapClass::class.java)) {
-            test += element.simpleName.toString()
             if (element.kind != ElementKind.CLASS && element.kind != ElementKind.INTERFACE) {
                 continue
             }
@@ -160,12 +155,6 @@ class ValueMapperProcessor : AbstractProcessor() {
                     }
                 }
             }
-        }
-        try {
-            Files.write(Paths.get("D:\\myfile.txt"), test.toByteArray(),
-                    StandardOpenOption.APPEND)
-        }catch (e : IOException) {
-            throw e
         }
     }
 

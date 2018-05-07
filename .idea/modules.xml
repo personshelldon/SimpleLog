@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SimpleLog.iml" filepath="$PROJECT_DIR$/SimpleLog.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/SimpleLog.iml" filepath="$PROJECT_DIR$/.idea/SimpleLog.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/simple-log/simple-log.iml" filepath="$PROJECT_DIR$/simple-log/simple-log.iml" />
       <module fileurl="file://$PROJECT_DIR$/simple-log-processor/simple-log-processor.iml" filepath="$PROJECT_DIR$/simple-log-processor/simple-log-processor.iml" />

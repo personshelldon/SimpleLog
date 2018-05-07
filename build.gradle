@@ -1,5 +1,5 @@
 /*
- * Modified by Vladyslav Lozytskyi on 05.05.18 23:15
+ * Modified by Vladyslav Lozytskyi on 07.05.18 13:42
  * Copyright (c) 2018. All rights reserved.
  */
 
@@ -12,13 +12,13 @@ buildscript {
             "compileSdkVersion": 27,
             "minSdkVersion"    : 9,
             "targetSdkVersion" : 27,
-            "versionCode"      : 28,
-            "versionName"      : "1.4.0",
+            "versionCode"      : 29,
+            "versionName"      : "1.4.1",
     ]
 
     ext.versions = [
             "supportLibraryVersion"  : "27.1.1",
-            "kotlinVersion"          : "1.2.30",
+            "kotlinVersion"          : "1.2.41",
     ]
 
     repositories {
