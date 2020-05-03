@@ -11,28 +11,28 @@ dependencies {
     testImplementation "junit:junit:$versions.junitVersion"
 }
 
-ext {
-    bintrayRepo = bintray.bintrayRepo
-    bintrayName = "SimpleLog-Processor"
+    ext {
+        bintrayRepo = bintray.bintrayRepo
+        bintrayName = "SimpleLog-Processor"
 
-    publishedGroupId = bintray.publishedGroupId
-    libraryName = "SimpleLog-Processor"
-    artifactName = "simple-log-processor"
+        publishedGroupId = bintray.publishedGroupId
+        libraryName = "SimpleLog-Processor"
+        artifactName = "simple-log-processor"
 
-    libraryDescription = "AnnotationProcessor for SimpleLog library"
+        libraryDescription = "AnnotationProcessor for SimpleLog library"
 
-    siteUrl = bintray.siteUrl
-    gitUrl = bintray.gitUrl
+        siteUrl = bintray.siteUrl
+        gitUrl = bintray.gitUrl
 
-    libraryVersion = config.versionName
+        libraryVersion = config.versionName
 
-    developerId = bintray.developerId
-    developerName = bintray.developerName
-    developerEmail = bintray.developerEmail
+        developerId = bintray.developerId
+        developerName = bintray.developerName
+        developerEmail = bintray.developerEmail
 
-    licenseName = bintray.licenseName
-    licenseUrl = bintray.licenseUrl
-    allLicenses = bintray.allLicenses
-}
+        licenseName = bintray.licenseName
+        licenseUrl = bintray.licenseUrl
+        allLicenses = bintray.allLicenses
+    }
 
-apply from: "$rootProject.projectDir/config/bintray.gradle"
+    apply from: "$rootProject.projectDir/config/bintray.gradle"

@@ -41,28 +41,34 @@ dependencies {
     testImplementation "androidx.test.ext:junit:$versions.testJunitVersion"
 }
 
-ext {
-    bintrayRepo = bintray.bintrayRepo
-    bintrayName = "SimpleLog"
+afterEvaluate {
+    ext {
+        bintrayRepo = bintray.bintrayRepo
+        bintrayName = "SimpleLog"
 
-    publishedGroupId = bintray.publishedGroupId
-    libraryName = "SimpleLog"
-    artifactName = "simple-log"
+        publishedGroupId = bintray.publishedGroupId
+        libraryName = "SimpleLog"
+        artifactName = "simple-log"
 
-    libraryDescription = "Extended log library for Android"
+        libraryDescription = "Extended log library for Android"
 
-    siteUrl = bintray.siteUrl
-    gitUrl = bintray.gitUrl
+        siteUrl = bintray.siteUrl
+        gitUrl = bintray.gitUrl
 
-    libraryVersion = config.versionName
+        libraryVersion = config.versionName
 
-    developerId = bintray.developerId
-    developerName = bintray.developerName
-    developerEmail = bintray.developerEmail
+        developerId = bintray.developerId
+        developerName = bintray.developerName
+        developerEmail = bintray.developerEmail
 
-    licenseName = bintray.licenseName
-    licenseUrl = bintray.licenseUrl
-    allLicenses = bintray.allLicenses
+        licenseName = bintray.licenseName
+        licenseUrl = bintray.licenseUrl
+        allLicenses = bintray.allLicenses
+
+        // Needed only for android library
+        publishingComponent = components.release
+    }
+
+    apply from: "$rootProject.projectDir/config/bintray.gradle"
 }
 
-apply from: "$rootProject.projectDir/config/bintray.gradle"

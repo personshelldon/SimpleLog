@@ -31,7 +31,7 @@ buildscript {
             "publishedGroupId": "com.don11995.log",
 
             "siteUrl"         : "https://github.com/personshelldon/SimpleLog",
-            "gitUrl"          : "https://github.com/personshelldon/SimpleLog",
+            "gitUrl"          : "https://github.com/personshelldon/SimpleLog.git",
 
             "developerId"     : "personshelldon",
             "developerName"   : "Vladislav Lozitskyi",
