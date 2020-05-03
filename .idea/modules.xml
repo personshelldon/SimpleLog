@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Desktop-SimpleLog.iml" filepath="$PROJECT_DIR$/Desktop-SimpleLog.iml" group="SimpleLog" />
       <module fileurl="file://$PROJECT_DIR$/SimpleLog.iml" filepath="$PROJECT_DIR$/SimpleLog.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/SimpleLog-app.iml" filepath="$PROJECT_DIR$/app/SimpleLog-app.iml" group="SimpleLog/app" />
+      <module fileurl="file://$PROJECT_DIR$/simple-log/SimpleLog-simple-log.iml" filepath="$PROJECT_DIR$/simple-log/SimpleLog-simple-log.iml" group="SimpleLog/simple-log" />
+      <module fileurl="file://$PROJECT_DIR$/simple-log-processor/SimpleLog-simple-log-processor.iml" filepath="$PROJECT_DIR$/simple-log-processor/SimpleLog-simple-log-processor.iml" group="SimpleLog/simple-log-processor" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/simple-log/simple-log.iml" filepath="$PROJECT_DIR$/simple-log/simple-log.iml" />
       <module fileurl="file://$PROJECT_DIR$/simple-log-processor/simple-log-processor.iml" filepath="$PROJECT_DIR$/simple-log-processor/simple-log-processor.iml" />

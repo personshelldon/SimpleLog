@@ -1,10 +1,5 @@
-/*
- * Modified by Vladyslav Lozytskyi on 07.05.18 13:42
- * Copyright (c) 2018. All rights reserved.
- */
-
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
 
 tasks.withType(Javadoc).all {
     enabled = false
@@ -13,6 +8,10 @@ tasks.withType(Javadoc).all {
 android {
 
     compileSdkVersion config.compileSdkVersion
+
+    useLibrary "android.test.runner"
+    useLibrary "android.test.base"
+    useLibrary "android.test.mock"
 
     testOptions {
         unitTests {
@@ -25,40 +24,45 @@ android {
         targetSdkVersion config.targetSdkVersion
         versionCode config.versionCode
         versionName config.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 }
 
 dependencies {
-//    testImplementation "org.robolectric:robolectric:3.8"
-//    testImplementation "com.google.truth:truth:0.40"
-    implementation "com.android.support:support-annotations:$versions.supportLibraryVersion"
+    implementation "androidx.annotation:annotation:$versions.annotationVersion"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlinVersion"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlinVersion"
+    testImplementation "org.robolectric:robolectric:$versions.robolectricVersion"
+    testImplementation "com.google.truth:truth:$versions.truthVersion"
+    testImplementation "androidx.test:core:$versions.testVersion"
+    testImplementation "androidx.test:runner:$versions.testVersion"
+    testImplementation "androidx.test:rules:$versions.testVersion"
+    testImplementation "androidx.test.ext:junit:$versions.testJunitVersion"
 }
 
 ext {
-    bintrayRepo = 'maven'
-    bintrayName = 'SimpleLog'
+    bintrayRepo = bintray.bintrayRepo
+    bintrayName = "SimpleLog"
 
-    publishedGroupId = 'com.don11995.log'
-    libraryName = 'SimpleLog'
-    artifact = 'simple-log'
+    publishedGroupId = bintray.publishedGroupId
+    libraryName = "SimpleLog"
+    artifactName = "simple-log"
 
-    libraryDescription = 'Extended log library for Android'
+    libraryDescription = "Extended log library for Android"
 
-    siteUrl = 'https://bitbucket.org/don11995/simplelog'
-    gitUrl = 'https://bitbucket.org/don11995/simplelog'
+    siteUrl = bintray.siteUrl
+    gitUrl = bintray.gitUrl
 
     libraryVersion = config.versionName
 
-    developerId = 'personshelldon'
-    developerName = 'Vladislav Lozitskyi'
-    developerEmail = 'personshelldon@gmail.com'
+    developerId = bintray.developerId
+    developerName = bintray.developerName
+    developerEmail = bintray.developerEmail
 
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
+    licenseName = bintray.licenseName
+    licenseUrl = bintray.licenseUrl
+    allLicenses = bintray.allLicenses
 }
 
-apply from: "$rootProject.projectDir/config/bintray-install.gradle"
 apply from: "$rootProject.projectDir/config/bintray.gradle"

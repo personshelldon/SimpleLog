@@ -1,8 +1,3 @@
-/*
- * Modified by Vladyslav Lozytskyi on 05.05.18 23:39
- * Copyright (c) 2018. All rights reserved.
- */
-
 package com.don11995.log
 
 import android.util.Log
@@ -71,8 +66,8 @@ internal class LogAssert private constructor(private val items: List<ShadowLog.L
 
     companion object {
 
-        fun assertLog(): LogAssert {
-            return LogAssert(ShadowLog.getLogs())
+        fun assertLog(tag: String): LogAssert {
+            return LogAssert(ShadowLog.getLogsForTag(tag))
         }
     }
 }

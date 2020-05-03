@@ -1,8 +1,3 @@
-/*
- * Modified by Vladyslav Lozytskyi on 05.05.18 22:08
- * Copyright (c) 2018. All rights reserved.
- */
-
 package com.don11995.log
 
 import android.os.Handler
@@ -10,9 +5,9 @@ import android.os.Handler
 /**
  * Callback for every log call.
  *
- * @param mHandler [Handler] for [processLog] function
+ * @param handler [Handler] for [processLog] function
  */
-abstract class LogProcessor(private val mHandler: Handler = Handler()) {
+abstract class LogProcessor(private val handler: Handler = Handler()) {
 
     /**
      * Callback wrapper on every log call.
@@ -26,9 +21,9 @@ abstract class LogProcessor(private val mHandler: Handler = Handler()) {
                                   message: String,
                                   priority: LogLevel,
                                   e: Throwable?) {
-        mHandler.post({
+        handler.post {
             processLog(tag, message, priority, e)
-        })
+        }
     }
 
     /**

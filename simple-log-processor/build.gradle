@@ -1,40 +1,38 @@
-/*
- * Modified by Vladyslav Lozytskyi on 07.05.18 13:42
- * Copyright (c) 2018. All rights reserved.
- */
-
-apply plugin: 'java'
-apply plugin: 'kotlin'
+apply plugin: "java"
+apply plugin: "kotlin"
+apply plugin: "kotlin-kapt"
 
 dependencies {
-//    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlinVersion"
+    kapt "net.ltgt.gradle.incap:incap-processor:$versions.incapVersion"
+    implementation "net.ltgt.gradle.incap:incap:$versions.incapVersion"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$versions.kotlinVersion"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlinVersion"
+    testImplementation "com.github.tschuchortdev:kotlin-compile-testing:$versions.kotlinCompileTestingVersion"
+    testImplementation "junit:junit:$versions.junitVersion"
 }
 
 ext {
-    bintrayRepo = 'maven'
-    bintrayName = 'SimpleLog-Processor'
+    bintrayRepo = bintray.bintrayRepo
+    bintrayName = "SimpleLog-Processor"
 
-    publishedGroupId = 'com.don11995.log'
-    libraryName = 'SimpleLog-Processor'
-    artifact = 'simple-log-processor'
+    publishedGroupId = bintray.publishedGroupId
+    libraryName = "SimpleLog-Processor"
+    artifactName = "simple-log-processor"
 
-    libraryDescription = 'AnnotationProcessor fot SimpleLog library'
+    libraryDescription = "AnnotationProcessor for SimpleLog library"
 
-    siteUrl = 'https://bitbucket.org/don11995/simplelog'
-    gitUrl = 'https://bitbucket.org/don11995/simplelog'
+    siteUrl = bintray.siteUrl
+    gitUrl = bintray.gitUrl
 
     libraryVersion = config.versionName
 
-    developerId = 'personshelldon'
-    developerName = 'Vladislav Lozitskyi'
-    developerEmail = 'personshelldon@gmail.com'
+    developerId = bintray.developerId
+    developerName = bintray.developerName
+    developerEmail = bintray.developerEmail
 
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
+    licenseName = bintray.licenseName
+    licenseUrl = bintray.licenseUrl
+    allLicenses = bintray.allLicenses
 }
 
-apply from: "$rootProject.projectDir/config/bintray-install.gradle"
 apply from: "$rootProject.projectDir/config/bintray.gradle"

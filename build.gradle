@@ -1,24 +1,45 @@
-/*
- * Modified by Vladyslav Lozytskyi on 07.05.18 13:42
- * Copyright (c) 2018. All rights reserved.
- */
-
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
     ext.config = [
             "appName"          : "SimpleLog",
             "applicationId"    : "com.don11995.log",
-            "compileSdkVersion": 27,
-            "minSdkVersion"    : 9,
-            "targetSdkVersion" : 27,
-            "versionCode"      : 29,
-            "versionName"      : "1.4.1",
+            "compileSdkVersion": 29,
+            "minSdkVersion"    : 14,
+            "targetSdkVersion" : 29,
+            "versionCode"      : 30,
+            "versionName"      : "1.4.2",
     ]
 
     ext.versions = [
-            "supportLibraryVersion"  : "27.1.1",
-            "kotlinVersion"          : "1.2.41",
+            "appCompatVersion"           : "1.1.0",
+            "annotationVersion"          : "1.1.0",
+            "kotlinVersion"              : "1.3.72",
+            "robolectricVersion"         : "4.3",
+            "truthVersion"               : "1.0.1",
+            "junitVersion"               : "4.13",
+            "incapVersion"               : "0.2",
+            "kotlinCompileTestingVersion": "1.2.8",
+            "testVersion"                : "1.2.0",
+            "testJunitVersion"           : "1.1.1",
+
+    ]
+
+    ext.bintray = [
+            "bintrayRepo"     : "maven",
+
+            "publishedGroupId": "com.don11995.log",
+
+            "siteUrl"         : "https://github.com/personshelldon/SimpleLog",
+            "gitUrl"          : "https://github.com/personshelldon/SimpleLog",
+
+            "developerId"     : "personshelldon",
+            "developerName"   : "Vladislav Lozitskyi",
+            "developerEmail"  : "personshelldon@gmail.com",
+
+            "licenseName"     : "The Apache Software License, Version 2.0",
+            "licenseUrl"      : "http://www.apache.org/licenses/LICENSE-2.0.txt",
+            "allLicenses"     : ["Apache-2.0"]
     ]
 
     repositories {
@@ -27,10 +48,8 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.2'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.0'
-        // version 2.1 requires gradle version 4.6+
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+        classpath "com.android.tools.build:gradle:3.6.3"
+        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlinVersion"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

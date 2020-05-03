@@ -1,16 +1,11 @@
-/*
- * Modified by Vladyslav Lozytskyi on 05.05.18 22:05
- * Copyright (c) 2018. All rights reserved.
- */
-
 @file:Suppress("unused")
 
 package com.don11995.log
 
 import android.os.Build
-import android.support.annotation.IntRange
 import android.text.TextUtils
 import android.util.Log
+import androidx.annotation.IntRange
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.util.*
@@ -44,7 +39,7 @@ object SimpleLog {
     private var sDividerChar = '-'
 
     /**
-     * Lenght of one block [.sDividerChar]
+     * Length of one block [.sDividerChar]
      */
     private var sDividerBlockSize = 8
 
@@ -1043,6 +1038,6 @@ object SimpleLog {
             }
         }
         val fullMessage = logs.joinToString("", transform = { it })
-        sLogProcessorList.forEach({ it.handleProcessLog(tag, fullMessage, logLevel, e) })
+        sLogProcessorList.forEach { it.handleProcessLog(tag, fullMessage, logLevel, e) }
     }
 }

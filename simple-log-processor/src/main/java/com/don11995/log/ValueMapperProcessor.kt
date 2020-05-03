@@ -1,10 +1,7 @@
-/*
- * Modified by Vladyslav Lozytskyi on 07.05.18 13:39
- * Copyright (c) 2018. All rights reserved.
- */
-
 package com.don11995.log
 
+import net.ltgt.gradle.incap.IncrementalAnnotationProcessor
+import net.ltgt.gradle.incap.IncrementalAnnotationProcessorType
 import java.io.IOException
 import java.util.*
 import javax.annotation.processing.AbstractProcessor
@@ -23,6 +20,7 @@ import javax.lang.model.type.ExecutableType
         "com.don11995.log.MapClass",
         "com.don11995.log.MapClassInner")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
+@IncrementalAnnotationProcessor(IncrementalAnnotationProcessorType.AGGREGATING)
 class ValueMapperProcessor : AbstractProcessor() {
 
     companion object {

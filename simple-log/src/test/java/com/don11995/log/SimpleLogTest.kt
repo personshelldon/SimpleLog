@@ -1,21 +1,16 @@
-/*
- * Modified by Vladyslav Lozytskyi on 05.05.18 23:39
- * Copyright (c) 2018. All rights reserved.
- */
-
 package com.don11995.log
 
 import android.os.Build
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.don11995.log.LogAssert.Companion.assertLog
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import java.io.IOException
 
 @Config(sdk = [Build.VERSION_CODES.JELLY_BEAN])
-@RunWith(RobolectricTestRunner::class)
+@RunWith(AndroidJUnit4::class)
 class SimpleLogTest {
 
     @Test
@@ -26,12 +21,12 @@ class SimpleLogTest {
         SimpleLog.fv()
         SimpleLog.fw()
         SimpleLog.fwtf()
-        assertLog().hasDebugMessage("SimpleLogTest", "testPrintFunctionNames()")
-                .hasInfoMessage("SimpleLogTest", "testPrintFunctionNames()")
-                .hasErrorMessage("SimpleLogTest", "testPrintFunctionNames()")
-                .hasVerboseMessage("SimpleLogTest", "testPrintFunctionNames()")
-                .hasWarnMessage("SimpleLogTest", "testPrintFunctionNames()")
-                .hasAssertMessage("SimpleLogTest", "testPrintFunctionNames()")
+        assertLog(TAG).hasDebugMessage(TAG, "testPrintFunctionNames()")
+                .hasInfoMessage(TAG, "testPrintFunctionNames()")
+                .hasErrorMessage(TAG, "testPrintFunctionNames()")
+                .hasVerboseMessage(TAG, "testPrintFunctionNames()")
+                .hasWarnMessage(TAG, "testPrintFunctionNames()")
+                .hasAssertMessage(TAG, "testPrintFunctionNames()")
                 .hasNoMoreMessages()
     }
 
@@ -43,12 +38,12 @@ class SimpleLogTest {
         SimpleLog.v("test4")
         SimpleLog.w("test5")
         SimpleLog.wtf("test6")
-        assertLog().hasDebugMessage("SimpleLogTest", "test1")
-                .hasInfoMessage("SimpleLogTest", "test2")
-                .hasErrorMessage("SimpleLogTest", "test3")
-                .hasVerboseMessage("SimpleLogTest", "test4")
-                .hasWarnMessage("SimpleLogTest", "test5")
-                .hasAssertMessage("SimpleLogTest", "test6")
+        assertLog(TAG).hasDebugMessage(TAG, "test1")
+                .hasInfoMessage(TAG, "test2")
+                .hasErrorMessage(TAG, "test3")
+                .hasVerboseMessage(TAG, "test4")
+                .hasWarnMessage(TAG, "test5")
+                .hasAssertMessage(TAG, "test6")
                 .hasNoMoreMessages()
     }
 
@@ -60,17 +55,17 @@ class SimpleLogTest {
         SimpleLog.fv("test4")
         SimpleLog.fw("test5")
         SimpleLog.fwtf("test6")
-        assertLog().hasDebugMessage("SimpleLogTest",
+        assertLog(TAG).hasDebugMessage(TAG,
                 "testPrintWithFunctionName() -> test1")
-                .hasInfoMessage("SimpleLogTest",
+                .hasInfoMessage(TAG,
                         "testPrintWithFunctionName() -> test2")
-                .hasErrorMessage("SimpleLogTest",
+                .hasErrorMessage(TAG,
                         "testPrintWithFunctionName() -> test3")
-                .hasVerboseMessage("SimpleLogTest",
+                .hasVerboseMessage(TAG,
                         "testPrintWithFunctionName() -> test4")
-                .hasWarnMessage("SimpleLogTest",
+                .hasWarnMessage(TAG,
                         "testPrintWithFunctionName() -> test5")
-                .hasAssertMessage("SimpleLogTest",
+                .hasAssertMessage(TAG,
                         "testPrintWithFunctionName() -> test6")
                 .hasNoMoreMessages()
     }
@@ -92,12 +87,12 @@ class SimpleLogTest {
         SimpleLog.w(group)
         SimpleLog.v(group)
         SimpleLog.wtf(group)
-        assertLog().hasDebugMessage("SimpleLogTest", finalResult)
-                .hasErrorMessage("SimpleLogTest", finalResult)
-                .hasInfoMessage("SimpleLogTest", finalResult)
-                .hasWarnMessage("SimpleLogTest", finalResult)
-                .hasVerboseMessage("SimpleLogTest", finalResult)
-                .hasAssertMessage("SimpleLogTest", finalResult)
+        assertLog(TAG).hasDebugMessage(TAG, finalResult)
+                .hasErrorMessage(TAG, finalResult)
+                .hasInfoMessage(TAG, finalResult)
+                .hasWarnMessage(TAG, finalResult)
+                .hasVerboseMessage(TAG, finalResult)
+                .hasAssertMessage(TAG, finalResult)
                 .hasNoMoreMessages()
     }
 
@@ -119,12 +114,12 @@ class SimpleLogTest {
         SimpleLog.fw(group)
         SimpleLog.fv(group)
         SimpleLog.fwtf(group)
-        assertLog().hasDebugMessage("SimpleLogTest", finalResult)
-                .hasErrorMessage("SimpleLogTest", finalResult)
-                .hasInfoMessage("SimpleLogTest", finalResult)
-                .hasWarnMessage("SimpleLogTest", finalResult)
-                .hasVerboseMessage("SimpleLogTest", finalResult)
-                .hasAssertMessage("SimpleLogTest", finalResult)
+        assertLog(TAG).hasDebugMessage(TAG, finalResult)
+                .hasErrorMessage(TAG, finalResult)
+                .hasInfoMessage(TAG, finalResult)
+                .hasWarnMessage(TAG, finalResult)
+                .hasVerboseMessage(TAG, finalResult)
+                .hasAssertMessage(TAG, finalResult)
                 .hasNoMoreMessages()
     }
 
@@ -151,9 +146,9 @@ class SimpleLogTest {
         SimpleLog.w("test11")
         SimpleLog.wtf("test12")
 
-        assertLog().hasDebugMessage("SimpleLogTest", "test1")
-                .hasInfoMessage("SimpleLogTest", "test2")
-                .hasAssertMessage("SimpleLogTest", "test6")
+        assertLog(TAG).hasDebugMessage(TAG, "test1")
+                .hasInfoMessage(TAG, "test2")
+                .hasAssertMessage(TAG, "test6")
                 .hasNoMoreMessages()
 
         SimpleLog.enableAllLogs()
@@ -172,12 +167,12 @@ class SimpleLogTest {
         SimpleLog.v(Resources.LONG_TEXT_4000)
         SimpleLog.w(Resources.LONG_TEXT_4000_N)
 
-        assertLog().hasDebugMessage("SimpleLogTest", finalLongText1)
-                .hasDebugMessage("SimpleLogTest", finalLongText2)
-                .hasErrorMessage("SimpleLogTest", finalLongText3)
-                .hasInfoMessage("SimpleLogTest", finalLongText3)
-                .hasVerboseMessage("SimpleLogTest", finalLongText4)
-                .hasWarnMessage("SimpleLogTest", finalLongText4)
+        assertLog(TAG).hasDebugMessage(TAG, finalLongText1)
+                .hasDebugMessage(TAG, finalLongText2)
+                .hasErrorMessage(TAG, finalLongText3)
+                .hasInfoMessage(TAG, finalLongText3)
+                .hasVerboseMessage(TAG, finalLongText4)
+                .hasWarnMessage(TAG, finalLongText4)
                 .hasNoMoreMessages()
     }
 
@@ -196,27 +191,27 @@ class SimpleLogTest {
         SimpleLog.fv(Resources.LONG_TEXT_4000)
         SimpleLog.fw(Resources.LONG_TEXT_4000_N)
 
-        assertLog().hasDebugMessage("SimpleLogTest",
+        assertLog(TAG).hasDebugMessage(TAG,
                 "testPrintVeryBigLogWithFunctionName() -> $finalLongText1")
-                .hasDebugMessage("SimpleLogTest", finalLongText2)
-                .hasErrorMessage("SimpleLogTest",
+                .hasDebugMessage(TAG, finalLongText2)
+                .hasErrorMessage(TAG,
                         "testPrintVeryBigLogWithFunctionName() -> $finalLongText3")
-                .hasErrorMessage("SimpleLogTest", finalLongText4)
-                .hasInfoMessage("SimpleLogTest",
+                .hasErrorMessage(TAG, finalLongText4)
+                .hasInfoMessage(TAG,
                         "testPrintVeryBigLogWithFunctionName() -> $finalLongText3")
-                .hasInfoMessage("SimpleLogTest", finalLongText4)
-                .hasVerboseMessage("SimpleLogTest",
+                .hasInfoMessage(TAG, finalLongText4)
+                .hasVerboseMessage(TAG,
                         "testPrintVeryBigLogWithFunctionName() -> $finalLongText5")
-                .hasVerboseMessage("SimpleLogTest", finalLongText6)
-                .hasWarnMessage("SimpleLogTest",
+                .hasVerboseMessage(TAG, finalLongText6)
+                .hasWarnMessage(TAG,
                         "testPrintVeryBigLogWithFunctionName() -> $finalLongText5")
-                .hasWarnMessage("SimpleLogTest", finalLongText6)
+                .hasWarnMessage(TAG, finalLongText6)
                 .hasNoMoreMessages()
     }
 
     @Test
     fun testPrintCustomTag() {
-        val classTag = "SimpleLogTest"
+        val classTag = TAG
         val finalTag = "CUSTOMTAG"
         val finalLog1 = "testPrintCustomTag()"
         val finalLog2 = "TestLog"
@@ -247,27 +242,29 @@ class SimpleLogTest {
         SimpleLog.twtf(finalTag, "TestLog")
         SimpleLog.tfwtf(finalTag, "TestLog")
 
-        assertLog().hasDebugMessage(classTag, finalLog1)
-                .hasDebugMessage(finalTag, finalLog1)
+        assertLog(classTag).hasDebugMessage(classTag, finalLog1)
+                .hasErrorMessage(classTag, finalLog1)
+                .hasInfoMessage(classTag, finalLog1)
+                .hasVerboseMessage(classTag, finalLog1)
+                .hasWarnMessage(classTag, finalLog1)
+                .hasAssertMessage(classTag, finalLog1)
+                .hasNoMoreMessages()
+
+        assertLog(finalTag).hasDebugMessage(finalTag, finalLog1)
                 .hasDebugMessage(finalTag, finalLog2)
                 .hasDebugMessage(finalTag, finalLog3)
-                .hasErrorMessage(classTag, finalLog1)
                 .hasErrorMessage(finalTag, finalLog1)
                 .hasErrorMessage(finalTag, finalLog2)
                 .hasErrorMessage(finalTag, finalLog3)
-                .hasInfoMessage(classTag, finalLog1)
                 .hasInfoMessage(finalTag, finalLog1)
                 .hasInfoMessage(finalTag, finalLog2)
                 .hasInfoMessage(finalTag, finalLog3)
-                .hasVerboseMessage(classTag, finalLog1)
                 .hasVerboseMessage(finalTag, finalLog1)
                 .hasVerboseMessage(finalTag, finalLog2)
                 .hasVerboseMessage(finalTag, finalLog3)
-                .hasWarnMessage(classTag, finalLog1)
                 .hasWarnMessage(finalTag, finalLog1)
                 .hasWarnMessage(finalTag, finalLog2)
                 .hasWarnMessage(finalTag, finalLog3)
-                .hasAssertMessage(classTag, finalLog1)
                 .hasAssertMessage(finalTag, finalLog1)
                 .hasAssertMessage(finalTag, finalLog2)
                 .hasAssertMessage(finalTag, finalLog3)
@@ -276,7 +273,7 @@ class SimpleLogTest {
 
     @Test
     fun testPrintNull() {
-        val finalTag = "SimpleLogTest"
+        val finalTag = TAG
         val finalLog = "testPrintNull()"
 
         SimpleLog.d(null)
@@ -284,7 +281,7 @@ class SimpleLogTest {
         SimpleLog.tfd(null)
         SimpleLog.tfd(null, null)
 
-        assertLog().hasDebugMessage(finalTag, finalLog)
+        assertLog(finalTag).hasDebugMessage(finalTag, finalLog)
                 .hasDebugMessage(finalTag, finalLog)
                 .hasDebugMessage(finalTag, finalLog)
                 .hasNoMoreMessages()
@@ -321,21 +318,22 @@ class SimpleLogTest {
         SimpleLog.tw("Test", IOException("Test error"))
         SimpleLog.removeLogProcessor(logProcessor2)
 
-        assertLog()
-                .hasDebugMessage(javaClass.simpleName, "Test1")
-                .hasErrorMessage(javaClass.simpleName, "Log processor message")
-                .hasDebugMessage(javaClass.simpleName, "Test2")
+        assertLog(TAG)
+                .hasDebugMessage(TAG, "Test1")
+                .hasErrorMessage(TAG, "Log processor message")
+                .hasDebugMessage(TAG, "Test2")
+                .hasNoMoreMessages()
+        assertLog("Test")
                 .hasWarnMessageStartsWith("Test", "java.io.IOException")
                 .hasNoMoreMessages()
-
     }
 
     @Test
     fun testPrintExceptions() {
         SimpleLog.d(IOException("Test"))
         SimpleLog.e(IOException("Test2"))
-        assertLog().hasDebugMessageStartsWith(javaClass.simpleName, "java.io.IOException: Test")
-                .hasErrorMessageStartsWith(javaClass.simpleName, "java.io.IOException: Test2")
+        assertLog(TAG).hasDebugMessageStartsWith(TAG, "java.io.IOException: Test")
+                .hasErrorMessageStartsWith(TAG, "java.io.IOException: Test2")
                 .hasNoMoreMessages()
     }
 
@@ -345,23 +343,25 @@ class SimpleLogTest {
         SimpleLog.d("Test")
         val codeLine1 = Thread.currentThread().stackTrace[1].lineNumber - 1
         JavaReference.printTestLog()
-        val codeLine2 = 11
+        val codeLine2 = 6
         SimpleLog.e(Group("Group").append("Test"))
         val codeLine3 = Thread.currentThread().stackTrace[1].lineNumber - 1
         SimpleLog.setPrintReferences(false)
 
-        val groupLog = ("(" + javaClass.simpleName + ".kt:" + codeLine3 + ")\n\t"
+        val groupLog = ("(" + TAG + ".kt:" + codeLine3 + ")\n\t"
                 + "--------Group--------\n\t"
                 + "Test\n\t"
                 + "---------------------")
 
-        assertLog().hasDebugMessage(javaClass.simpleName,
-                "(" + javaClass.simpleName
+        assertLog(TAG).hasDebugMessage(TAG,
+                "(" + TAG
                         + ".kt:" + codeLine1 + ") Test")
+                .hasErrorMessage(TAG, groupLog)
+                .hasNoMoreMessages()
+        assertLog(JavaReference::class.java.simpleName)
                 .hasErrorMessage(JavaReference::class.java.simpleName,
                         "(" + JavaReference::class.java.simpleName
                                 + ".java:" + codeLine2 + ") Test")
-                .hasErrorMessage(javaClass.simpleName, groupLog)
                 .hasNoMoreMessages()
     }
 
@@ -370,9 +370,13 @@ class SimpleLogTest {
         SimpleLog.d("Test ")
         SimpleLog.e(" Test ")
         SimpleLog.w(" Test \n\n")
-        assertLog().hasDebugMessage(javaClass.simpleName, "Test")
-                .hasErrorMessage(javaClass.simpleName, "Test")
-                .hasWarnMessage(javaClass.simpleName, "Test")
+        assertLog(TAG).hasDebugMessage(TAG, "Test")
+                .hasErrorMessage(TAG, "Test")
+                .hasWarnMessage(TAG, "Test")
                 .hasNoMoreMessages()
+    }
+
+    companion object {
+        private val TAG = SimpleLogTest::class.java.simpleName
     }
 }

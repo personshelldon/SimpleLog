@@ -1,8 +1,3 @@
-/*
- * Modified by Vladyslav Lozytskyi on 05.05.18 22:36
- * Copyright (c) 2018. All rights reserved.
- */
-
 package com.don11995.log
 
 import java.util.*
@@ -12,7 +7,7 @@ import java.util.*
  *
  * @param mGroupName name of the group
  */
-class Group(internal val mGroupName : String) {
+class Group(internal val mGroupName: String) {
 
     internal var mText: String = ""
     internal var mTag: String? = null

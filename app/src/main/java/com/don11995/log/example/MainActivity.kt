@@ -1,18 +1,13 @@
-/*
- * Modified by Vladyslav Lozytskyi on 05.05.18 23:39
- * Copyright (c) 2018. All rights reserved.
- */
-
 package com.don11995.log.example
 
 import android.media.AudioManager
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.widget.CheckBox
 import android.widget.CompoundButton
+import androidx.appcompat.app.AppCompatActivity
 import com.don11995.log.*
 
 /*  @MapClass will generate new class com.don11995.log.ValueMapper
@@ -158,40 +153,47 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, CompoundButton.O
         }
     }
 
+    @Suppress("unused")
     companion object {
 
-        /*  @MapField will generate new class com.don11995.log.ValueMapper
-        with method "setup" that mapping values to names.
-        You need to add dependency
-        annotationProcessor 'com.don11995.log:simple-log-processor:x.x.x'
-     */
+        /**
+         * @MapField will generate new class com.don11995.log.ValueMapper
+         * with method "setup" that mapping values to names.
+         * You need to add dependency
+         * annotationProcessor 'com.don11995.log:simple-log-processor:x.x.x'
+         */
         @MapField("setup")
         private val SETUP_0 = 0
+
         @MapField("setup")
         private val SETUP_1 = 1
+
         @MapField("setup")
         private val SETUP_2 = 2
+
         @MapField("setup")
         private val SETUP_3 = 3
+
         @MapField("setup")
         private val SETUP_4 = 4
 
-        private val TEST_1 = "test1"
-        private val TEST_2 = "test2"
-        private val TEST_3 = "test3"
+        private const val TEST_1 = "test1"
+        private const val TEST_2 = "test2"
+        private const val TEST_3 = "test3"
+        private const val TEST_4 = "test4"
 
-        private val TAG = "TEST_TAG"
-        private val LOG = "TEST_LOG"
+        private const val TAG = "TEST_TAG"
+        private const val LOG = "TEST_LOG"
 
-        /*
-    * SimpleLog will print
-    * --------TITLE--------
-    * Line 1
-    * Line 2
-    * ---------------------
-    *
-    * and with custom TAG = "TEST_TAG"
-    */
+        /**
+         * SimpleLog will print
+         * --------TITLE--------
+         * Line 1
+         * Line 2
+         * ---------------------
+         *
+         * and with custom TAG = "TEST_TAG"
+         */
         private val GROUP = Group("TITLE")
                 .append("Line 1")
                 .append("Line 2")

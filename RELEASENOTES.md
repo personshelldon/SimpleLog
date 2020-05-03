@@ -1,3 +1,7 @@
+## Version 1.4.2
+* Add support of incremental build in annotation processor
+* Raise `minSdkVersion` to `14`
+
 ## Version 1.4.1
 * Fixed bug in `ValueMapperProcessor` when it can not run normally
 
